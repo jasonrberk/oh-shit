@@ -12,18 +12,18 @@ const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL)
 const clerkAppearance = {
   baseTheme: dark,
   variables: {
-    colorBackground: '#1e293b',
-    colorPrimary: '#3b82f6',
-    colorText: '#f1f5f9',
-    colorTextSecondary: '#94a3b8',
-    colorNeutral: '#ffffff',
-    colorShimmer: '#475569',
-    borderRadius: '0.75rem',
+    colorBackground: '#1a3327',   // felt-light
+    colorPrimary: '#c4961e',      // antique gold
+    colorText: '#f0ebe0',         // warm cream
+    colorTextSecondary: '#a89e90',
+    colorNeutral: '#f0ebe0',
+    colorShimmer: '#243f31',
+    borderRadius: '0.375rem',
   },
   elements: {
-    socialButtonsIconButton__apple: { backgroundColor: '#475569', border: '1px solid #64748b' },
-    socialButtonsIconButton__facebook: { backgroundColor: '#475569', border: '1px solid #64748b' },
-    socialButtonsIconButton__google: { backgroundColor: '#475569', border: '1px solid #64748b' },
+    socialButtonsIconButton__apple: { backgroundColor: '#243f31', border: '1px solid rgba(196,150,30,0.2)' },
+    socialButtonsIconButton__facebook: { backgroundColor: '#243f31', border: '1px solid rgba(196,150,30,0.2)' },
+    socialButtonsIconButton__google: { backgroundColor: '#243f31', border: '1px solid rgba(196,150,30,0.2)' },
   }
 }
 
