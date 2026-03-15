@@ -1,4 +1,5 @@
-import { SignedIn, SignedOut, SignIn, UserButton } from '@clerk/clerk-react'
+import { SignedIn, SignedOut, SignIn } from '@clerk/clerk-react'
+import Dashboard from './Dashboard'
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       </SignedOut>
 
       <SignedIn>
-        <p className="text-white">Dashboard coming next...</p>
+        <Dashboard />
       </SignedIn>
     </div>
   )

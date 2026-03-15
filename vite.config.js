@@ -8,4 +8,8 @@ export default defineConfig({
     tailwindcss(),  
     react()
   ],
+  server: {
+    host: true, // same as 0.0.0.0
+    allowedHosts: ["mini.local"],
+  },
 })
