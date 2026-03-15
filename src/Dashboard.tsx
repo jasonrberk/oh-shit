@@ -6,25 +6,9 @@ function Dashboard() {
   return (
     <div className="min-h-screen bg-felt flex flex-col relative overflow-hidden">
 
-      {/* Ambient corner suit decorations */}
-      <div
-        aria-hidden="true"
-        className="absolute -top-4 -right-4 text-cream select-none pointer-events-none leading-none"
-        style={{ fontSize: '9rem', opacity: 0.03 }}
-      >
-        ♦
-      </div>
-      <div
-        aria-hidden="true"
-        className="absolute -bottom-4 -left-4 text-cream select-none pointer-events-none leading-none"
-        style={{ fontSize: '9rem', opacity: 0.03 }}
-      >
-        ♣
-      </div>
-
-      {/* Header */}
+{/* Header */}
       <header className="relative z-10 flex items-center justify-between px-6 py-4 bg-felt-light border-b border-gold" style={{ borderBottomColor: 'oklch(72% 0.13 82 / 12%)' }}>
-        <h1 className="font-serif text-gold tracking-[0.28em] text-base uppercase" style={{ fontWeight: 700 }}>
+        <h1 className="font-serif text-gold tracking-[0.28em] text-xl uppercase" style={{ fontWeight: 700 }}>
           Oh Shit!
         </h1>
         <UserButton
