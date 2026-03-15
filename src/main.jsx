@@ -1,11 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ClerkProvider } from '@clerk/clerk-react'
+import { ConvexProvider, ConvexReactClient } from 'convex/react'
 import { dark } from '@clerk/themes'
 import './index.css'
 import App from './App.jsx'
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL)
 
 const clerkAppearance = {
   baseTheme: dark,
@@ -28,7 +30,9 @@ const clerkAppearance = {
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} appearance={clerkAppearance}>
-      <App />
+      <ConvexProvider client={convex}>
+        <App />
+      </ConvexProvider>
     </ClerkProvider>
   </StrictMode>,
 )
