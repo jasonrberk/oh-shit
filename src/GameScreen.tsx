@@ -366,7 +366,7 @@ export default function GameScreen() {
         {/* Bids + Tricks — single CSS grid for column alignment */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: showTricks ? '1fr 7rem 7rem' : '1fr 8rem',
+          gridTemplateColumns: showTricks ? 'auto 1fr 1fr' : 'auto 1fr',
           rowGap: '1.1rem',
           alignItems: 'center',
         }}>

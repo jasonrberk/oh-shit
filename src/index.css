@@ -2,9 +2,9 @@
 
 @theme {
   /* Card room palette */
-  --color-felt: oklch(19% 0.07 158);
-  --color-felt-light: oklch(25% 0.07 158);
-  --color-felt-lighter: oklch(31% 0.07 158);
+  --color-felt: oklch(26% 0.07 158);
+  --color-felt-light: oklch(32% 0.07 158);
+  --color-felt-lighter: oklch(38% 0.07 158);
   --color-cream: oklch(94% 0.02 85);
   --color-cream-dim: oklch(68% 0.025 85);
   --color-gold: oklch(72% 0.13 82);
@@ -18,7 +18,7 @@
 }
 
 body {
-  background-color: oklch(19% 0.07 158);
+  background-color: oklch(26% 0.07 158);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
