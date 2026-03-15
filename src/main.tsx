@@ -1,7 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { ClerkProvider } from '@clerk/clerk-react'
-import { ConvexProvider, ConvexReactClient } from 'convex/react'
+import { ClerkProvider, useAuth } from '@clerk/clerk-react'
+import { ConvexReactClient } from 'convex/react'
+import { ConvexProviderWithClerk } from 'convex/react-clerk'
 import { dark } from '@clerk/themes'
 import './index.css'
 import App from './App'
@@ -41,9 +42,9 @@ createRoot(document.getElementById('root')!).render(
           },
         }}
       >
-      <ConvexProvider client={convex}>
+      <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
         <App />
-      </ConvexProvider>
+      </ConvexProviderWithClerk>
     </ClerkProvider>
   </StrictMode>,
 )

@@ -1,0 +1,220 @@
+import { useState } from 'react'
+import { useUser, UserButton } from '@clerk/clerk-react'
+import { useMutation } from 'convex/react'
+import { useNavigate } from 'react-router-dom'
+import { api } from '../convex/_generated/api'
+
+const PLAYER_LABELS = [
+  'You',
+  'Player to your left',
+  'Player across from you',
+  'Player to your right',
+]
+
+export default function NewScorecard() {
+  const { user } = useUser()
+  const navigate = useNavigate()
+  const createGame = useMutation(api.games.createGame)
+
+  const [names, setNames] = useState<[string, string, string, string]>([
+    user?.firstName ?? '',
+    '',
+    '',
+    '',
+  ])
+  const [dealerIndex, setDealerIndex] = useState<0 | 1 | 2 | 3 | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  function handleNameChange(index: number, value: string) {
+    const next: [string, string, string, string] = [...names] as [string, string, string, string]
+    next[index] = value
+    setNames(next)
+  }
+
+  function toggleDealer(index: 0 | 1 | 2 | 3) {
+    setDealerIndex(dealerIndex === index ? null : index)
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    if (names.some((n) => !n.trim())) {
+      setError('All four player names are required.')
+      return
+    }
+    setIsSubmitting(true)
+    setError(null)
+    try {
+      const result = await createGame({
+        players: names.map((n) => n.trim()) as [string, string, string, string],
+        dealerIndex: dealerIndex ?? -1,
+      })
+      navigate(`/scorecard/${result.gameCode}`)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to create scorecard.')
+      setIsSubmitting(false)
+    }
+  }
+
+  const allNamesEntered = names.every((n) => n.trim() !== '')
+  const dealerName = dealerIndex !== null ? names[dealerIndex]?.trim() : null
+
+  return (
+    <div className="min-h-screen bg-felt flex flex-col">
+
+      {/* Header */}
+      <header
+        className="relative z-10 flex items-center justify-between px-6 py-4 bg-felt-light border-b"
+        style={{ borderBottomColor: 'oklch(72% 0.13 82 / 10%)' }}
+      >
+        <h1
+          className="font-serif text-gold tracking-[0.28em] uppercase"
+          style={{ fontSize: '1.05rem', fontWeight: 700 }}
+        >
+          Oh Shit!
+        </h1>
+        <UserButton
+          appearance={{
+            elements: { avatarBox: 'ring-1 ring-gold/30 rounded-full' },
+          }}
+        />
+      </header>
+
+      {/* Main */}
+      <main className="flex-1 px-6 pt-8 pb-10">
+
+        <h2 className="font-serif text-cream tracking-wide mb-8" style={{ fontSize: '1.4rem' }}>
+          New Scorecard
+        </h2>
+
+        <form onSubmit={handleSubmit} className="flex flex-col gap-0">
+
+          {/* Dealer column header */}
+          <div className="flex items-center mb-2">
+            <div className="flex-1" />
+            <span
+              className="font-sans text-cream-dim uppercase"
+              style={{
+                fontSize: '0.58rem',
+                opacity: 0.45,
+                letterSpacing: '0.3em',
+                width: '2.25rem',
+                textAlign: 'center',
+              }}
+            >
+              D
+            </span>
+          </div>
+
+          {/* Player rows */}
+          <div className="flex flex-col gap-3.5">
+            {PLAYER_LABELS.map((label, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <input
+                  type="text"
+                  value={names[i]}
+                  onChange={(e) => handleNameChange(i, e.target.value)}
+                  placeholder={label}
+                  className="flex-1 bg-felt-light rounded px-4 py-3 font-sans text-cream text-sm focus:outline-none"
+                  style={{
+                    border: '1px solid oklch(72% 0.13 82 / 16%)',
+                    transition: 'border-color 0.15s ease',
+                  }}
+                  onFocus={(e) => (e.currentTarget.style.borderColor = 'oklch(72% 0.13 82 / 42%)')}
+                  onBlur={(e) => (e.currentTarget.style.borderColor = 'oklch(72% 0.13 82 / 16%)')}
+                />
+                {/* Dealer toggle */}
+                <button
+                  type="button"
+                  onClick={() => toggleDealer(i as 0 | 1 | 2 | 3)}
+                  disabled={!allNamesEntered}
+                  className="flex-shrink-0 transition-all duration-150 disabled:cursor-not-allowed"
+                  style={{
+                    width: '2.25rem',
+                    height: '2.25rem',
+                    borderRadius: '50%',
+                    border: dealerIndex === i
+                      ? '2px solid oklch(72% 0.13 82)'
+                      : '2px solid oklch(72% 0.13 82 / 22%)',
+                    backgroundColor: dealerIndex === i
+                      ? 'oklch(72% 0.13 82 / 12%)'
+                      : 'transparent',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    opacity: allNamesEntered ? 1 : 0.28,
+                  }}
+                  aria-label={`Set ${names[i] || label} as dealer`}
+                >
+                  <span
+                    className="font-serif"
+                    style={{
+                      fontSize: '0.72rem',
+                      color: dealerIndex === i ? 'oklch(72% 0.13 82)' : 'oklch(72% 0.13 82 / 50%)',
+                    }}
+                  >
+                    D
+                  </span>
+                </button>
+              </div>
+            ))}
+          </div>
+
+          {/* Dealer status line */}
+          <p
+            className="font-sans text-cream-dim mt-5"
+            style={{ fontSize: '0.78rem', opacity: 0.6, letterSpacing: '0.02em' }}
+          >
+            {dealerName
+              ? `${dealerName} will be the dealer`
+              : 'The dealer will be selected randomly'}
+          </p>
+
+          {error && (
+            <p
+              className="font-sans mt-3"
+              style={{ fontSize: '0.78rem', color: 'oklch(65% 0.18 25)' }}
+            >
+              {error}
+            </p>
+          )}
+
+          {/* Ornamental divider */}
+          <div className="flex items-center gap-3 my-8">
+            <div className="h-px flex-1 bg-gold" style={{ opacity: 0.1 }} />
+            <span className="text-gold" style={{ fontSize: '0.6rem', opacity: 0.22 }}>♦</span>
+            <div className="h-px flex-1 bg-gold" style={{ opacity: 0.1 }} />
+          </div>
+
+          {/* Action buttons */}
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={() => navigate('/')}
+              className="flex-1 px-4 py-4 bg-felt-light rounded font-serif text-gold tracking-[0.22em] uppercase transition-all duration-150 active:scale-[0.98]"
+              style={{
+                fontSize: '0.72rem',
+                border: '1px solid oklch(72% 0.13 82 / 16%)',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'oklch(72% 0.13 82 / 38%)')}
+              onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'oklch(72% 0.13 82 / 16%)')}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={isSubmitting || !allNamesEntered}
+              className="flex-[2] px-4 py-4 bg-crimson rounded font-serif text-cream tracking-[0.18em] uppercase transition-all duration-150 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"
+              style={{ fontSize: '0.72rem' }}
+              onMouseEnter={(e) => !isSubmitting && allNamesEntered && (e.currentTarget.style.backgroundColor = 'oklch(52% 0.21 25)')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '')}
+            >
+              {isSubmitting ? 'Creating…' : 'Create Scorecard'}
+            </button>
+          </div>
+
+        </form>
+      </main>
+    </div>
+  )
+}
