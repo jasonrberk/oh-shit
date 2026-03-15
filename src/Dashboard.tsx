@@ -62,7 +62,7 @@ function Dashboard() {
             <span className="text-xl leading-none" style={{ opacity: 0.7 }}>♦</span>
             <span
               className="font-serif flex-1 text-left tracking-[0.22em] uppercase"
-              style={{ fontSize: '0.78rem' }}
+              style={{ fontSize: '0.88rem' }}
             >
               Start a Scorecard
             </span>
@@ -84,7 +84,7 @@ function Dashboard() {
             <span className="text-gold text-xl leading-none" style={{ opacity: 0.6 }}>♣</span>
             <span
               className="font-serif flex-1 text-left text-gold tracking-[0.22em] uppercase"
-              style={{ fontSize: '0.78rem', opacity: 0.72 }}
+              style={{ fontSize: '0.88rem', opacity: 0.72 }}
             >
               View a Scorecard
             </span>
@@ -114,7 +114,7 @@ function Dashboard() {
             <div className="flex-1 text-left">
               <p
                 className="font-serif tracking-[0.22em] uppercase"
-                style={{ fontSize: '0.78rem', color: 'oklch(94% 0.02 85)', opacity: 0.18 }}
+                style={{ fontSize: '0.88rem', color: 'oklch(94% 0.02 85)', opacity: 0.18 }}
               >
                 Play Online
               </p>

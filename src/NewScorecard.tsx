@@ -28,7 +28,7 @@ export default function NewScorecard() {
 
   function handleNameChange(index: number, value: string) {
     const next: [string, string, string, string] = [...names] as [string, string, string, string]
-    next[index] = value
+    next[index] = value.length > 0 ? value.charAt(0).toUpperCase() + value.slice(1) : value
     setNames(next)
   }
 
@@ -40,6 +40,16 @@ export default function NewScorecard() {
     e.preventDefault()
     if (names.some((n) => !n.trim())) {
       setError('All four player names are required.')
+      return
+    }
+    const trimmed = names.map((n) => n.trim())
+    if (trimmed.some((n) => n.length < 2 || n.length > 10)) {
+      setError('Each name must be between 2 and 10 characters.')
+      return
+    }
+    const lower = trimmed.map((n) => n.toLowerCase())
+    if (new Set(lower).size !== lower.length) {
+      setError('Player names must be unique.')
       return
     }
     setIsSubmitting(true)
@@ -56,7 +66,20 @@ export default function NewScorecard() {
     }
   }
 
+  const trimmedNames = names.map((n) => n.trim())
+  const duplicateIndices = new Set<number>()
+  trimmedNames.forEach((name, i) => {
+    if (!name) return
+    trimmedNames.forEach((other, j) => {
+      if (i !== j && name.toLowerCase() === other.toLowerCase()) duplicateIndices.add(i)
+    })
+  })
+
   const allNamesEntered = names.every((n) => n.trim() !== '')
+  const isFormValid =
+    allNamesEntered &&
+    trimmedNames.every((n) => n.length >= 2 && n.length <= 10) &&
+    duplicateIndices.size === 0
   const dealerName = dealerIndex !== null ? names[dealerIndex]?.trim() : null
 
   return (
@@ -108,20 +131,25 @@ export default function NewScorecard() {
 
           {/* Player rows */}
           <div className="flex flex-col gap-3.5">
-            {PLAYER_LABELS.map((label, i) => (
+            {PLAYER_LABELS.map((label, i) => {
+              const isDuplicate = duplicateIndices.has(i)
+              const idleBorder = isDuplicate ? 'oklch(65% 0.18 25 / 70%)' : 'oklch(72% 0.13 82 / 16%)'
+              const focusBorder = isDuplicate ? 'oklch(65% 0.18 25)' : 'oklch(72% 0.13 82 / 42%)'
+              return (
               <div key={i} className="flex items-center gap-3">
                 <input
                   type="text"
                   value={names[i]}
                   onChange={(e) => handleNameChange(i, e.target.value)}
                   placeholder={label}
+                  maxLength={10}
                   className="flex-1 bg-felt-light rounded px-4 py-3 font-sans text-cream text-sm focus:outline-none"
                   style={{
-                    border: '1px solid oklch(72% 0.13 82 / 16%)',
+                    border: `1px solid ${idleBorder}`,
                     transition: 'border-color 0.15s ease',
                   }}
-                  onFocus={(e) => (e.currentTarget.style.borderColor = 'oklch(72% 0.13 82 / 42%)')}
-                  onBlur={(e) => (e.currentTarget.style.borderColor = 'oklch(72% 0.13 82 / 16%)')}
+                  onFocus={(e) => (e.currentTarget.style.borderColor = focusBorder)}
+                  onBlur={(e) => (e.currentTarget.style.borderColor = idleBorder)}
                 />
                 {/* Dealer toggle */}
                 <button
@@ -157,7 +185,8 @@ export default function NewScorecard() {
                   </span>
                 </button>
               </div>
-            ))}
+              )
+            })}
           </div>
 
           {/* Dealer status line */}
@@ -203,10 +232,10 @@ export default function NewScorecard() {
             </button>
             <button
               type="submit"
-              disabled={isSubmitting || !allNamesEntered}
+              disabled={isSubmitting || !isFormValid}
               className="flex-[2] px-4 py-4 bg-crimson rounded font-serif text-cream tracking-[0.18em] uppercase transition-all duration-150 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"
               style={{ fontSize: '0.72rem' }}
-              onMouseEnter={(e) => !isSubmitting && allNamesEntered && (e.currentTarget.style.backgroundColor = 'oklch(52% 0.21 25)')}
+              onMouseEnter={(e) => !isSubmitting && isFormValid && (e.currentTarget.style.backgroundColor = 'oklch(52% 0.21 25)')}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '')}
             >
               {isSubmitting ? 'Creating…' : 'Create Scorecard'}

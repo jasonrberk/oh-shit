@@ -193,7 +193,7 @@ export default function GameScreen() {
         <button
           onClick={() => navigate('/')}
           className="font-sans text-gold transition-opacity"
-          style={{ fontSize: '0.75rem', opacity: 0.45, letterSpacing: '0.05em' }}
+          style={{ fontSize: '0.75rem', opacity: 0.75, letterSpacing: '0.05em' }}
           onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
           onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.45')}
         >
@@ -203,7 +203,7 @@ export default function GameScreen() {
         <div className="flex-1 flex items-center justify-center gap-2">
           <span
             className="font-sans text-cream-dim uppercase tracking-[0.3em]"
-            style={{ fontSize: '0.55rem', opacity: 0.4 }}
+            style={{ fontSize: '0.55rem', opacity: 0.7 }}
           >
             Game
           </span>
@@ -261,7 +261,7 @@ export default function GameScreen() {
                   <span
                     className="font-sans truncate w-full text-center"
                     style={{
-                      fontSize: '0.6rem',
+                      fontSize: '0.72rem',
                       color: 'oklch(72% 0.13 82)',
                       opacity: isLeader ? 0.9 : 0.55,
                       letterSpacing: '0.06em',
@@ -335,7 +335,7 @@ export default function GameScreen() {
           <div>
             <p
               className="font-sans text-cream-dim uppercase mb-2.5"
-              style={{ fontSize: '0.6rem', opacity: 0.45, letterSpacing: '0.28em' }}
+              style={{ fontSize: '0.6rem', opacity: 0.7, letterSpacing: '0.28em' }}
             >
               Select trump suit
             </p>
@@ -375,14 +375,14 @@ export default function GameScreen() {
           <div />
           <div
             className="font-sans text-cream-dim uppercase text-center"
-            style={{ fontSize: '0.6rem', opacity: 0.45, letterSpacing: '0.28em' }}
+            style={{ fontSize: '0.6rem', opacity: 0.7, letterSpacing: '0.28em' }}
           >
             Bids
           </div>
           {showTricks && (
             <div
               className="font-sans text-cream-dim uppercase text-center"
-              style={{ fontSize: '0.6rem', opacity: 0.45, letterSpacing: '0.28em' }}
+              style={{ fontSize: '0.6rem', opacity: 0.7, letterSpacing: '0.28em' }}
             >
               Tricks
             </div>
