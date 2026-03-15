@@ -29,7 +29,18 @@ const clerkAppearance = {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} appearance={clerkAppearance}>
+    <ClerkProvider
+        publishableKey={PUBLISHABLE_KEY}
+        appearance={clerkAppearance}
+        localization={{
+          signIn: {
+            start: {
+              title: 'Sign in to get playing!',
+              subtitle: '',
+            },
+          },
+        }}
+      >
       <ConvexProvider client={convex}>
         <App />
       </ConvexProvider>
