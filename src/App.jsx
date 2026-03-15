@@ -1,25 +1,18 @@
-import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from '@clerk/clerk-react'
+import { SignedIn, SignedOut, SignIn, UserButton } from '@clerk/clerk-react'
 
 function App() {
-  const { user } = useUser()
-
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-900">
+    <div className="min-h-screen bg-slate-900 flex items-center justify-center">
       <SignedOut>
-        <SignInButton mode="modal">
-          <button className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl">
-            Sign In
-          </button>
-        </SignInButton>
+        <div className="flex flex-col items-center gap-6">
+          <h1 className="text-3xl font-bold text-white tracking-tight">Oh Shit!</h1>
+          <p className="text-slate-400 text-sm">Sign in to manage your scorecard</p>
+          <SignIn routing="hash" />
+        </div>
       </SignedOut>
 
       <SignedIn>
-        <div className="flex flex-col items-center gap-4">
-          <h1 className="text-4xl font-bold text-white">
-            Hey, {user?.firstName}!
-          </h1>
-          <UserButton />
-        </div>
+        <p className="text-white">Dashboard coming next...</p>
       </SignedIn>
     </div>
   )
