@@ -16,26 +16,29 @@ function Dashboard() {
   const deleteGame = useMutation(api.games.deleteGame)
 
   return (
-    <div className="min-h-screen bg-felt relative overflow-hidden">
-    <div className="mx-auto w-full max-w-lg min-h-screen flex flex-col">
+    <div className="min-h-screen bg-felt relative overflow-hidden flex flex-col">
 
       {/* Header */}
       <header
-        className="relative z-10 flex items-center justify-between px-6 py-4 bg-felt-light border-b"
+        className="relative z-10 w-full bg-felt-light border-b"
         style={{ borderBottomColor: 'oklch(72% 0.13 82 / 10%)' }}
       >
-        <h1
-          className="font-serif text-gold tracking-[0.28em] uppercase"
-          style={{ fontSize: '1.05rem', fontWeight: 700 }}
-        >
-          Oh Shit!
-        </h1>
-        <UserButton
-          appearance={{
-            elements: { avatarBox: 'ring-1 ring-gold/30 rounded-full' },
-          }}
-        />
+        <div className="mx-auto w-full max-w-lg flex items-center justify-between px-6 py-4">
+          <h1
+            className="font-serif text-gold tracking-[0.28em] uppercase"
+            style={{ fontSize: '1.05rem', fontWeight: 700 }}
+          >
+            Oh Shit!
+          </h1>
+          <UserButton
+            appearance={{
+              elements: { avatarBox: 'ring-1 ring-gold/30 rounded-full' },
+            }}
+          />
+        </div>
       </header>
+
+    <div className="mx-auto w-full max-w-lg flex-1 flex flex-col">
 
       {/* Main content */}
       <main className="relative z-10 flex flex-col flex-1 px-6 pt-10 pb-10">

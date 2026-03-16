@@ -95,14 +95,14 @@ export default function ViewScorecard() {
   for (const b of liveBids ?? []) liveBidsMap.set(b.playerIndex, b.bid)
 
   return (
-    <div className="min-h-screen bg-felt">
-    <div className="mx-auto w-full max-w-lg min-h-screen flex flex-col">
+    <div className="min-h-screen bg-felt flex flex-col">
 
       {/* Header */}
       <header
-        className="relative z-10 flex items-center gap-3 px-4 py-3 bg-felt-light border-b"
+        className="relative z-10 w-full bg-felt-light border-b"
         style={{ borderBottomColor: 'oklch(72% 0.13 82 / 10%)' }}
       >
+      <div className="mx-auto w-full max-w-lg flex items-center gap-3 px-4 py-3">
         <button
           onClick={() => navigate('/')}
           aria-label="Back to dashboard"
@@ -143,8 +143,10 @@ export default function ViewScorecard() {
         </div>
 
         <UserButton appearance={{ elements: { avatarBox: 'ring-1 ring-gold/30 rounded-full' } }} />
+      </div>
       </header>
 
+    <div className="mx-auto w-full max-w-lg flex-1 flex flex-col">
       <main className="flex-1 overflow-x-auto">
         <table
           className="w-full border-collapse"
