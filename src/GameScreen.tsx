@@ -143,6 +143,24 @@ export default function GameScreen() {
     })
   }
 
+  if (game === null) {
+    return (
+      <div className="min-h-screen bg-felt flex flex-col items-center justify-center gap-4">
+        <span className="font-serif text-gold" style={{ fontSize: '2rem', opacity: 0.35 }}>♦</span>
+        <p className="font-sans text-cream-dim text-center tracking-[0.15em]" style={{ fontSize: '0.7rem', opacity: 0.55, maxWidth: '16rem', lineHeight: 1.6 }}>
+          Game not found — it may have been deleted.
+        </p>
+        <button
+          onClick={() => navigate('/')}
+          className="font-sans text-gold"
+          style={{ fontSize: '0.7rem', opacity: 0.5, letterSpacing: '0.08em' }}
+        >
+          ← Back to home
+        </button>
+      </div>
+    )
+  }
+
   if (!game || !round) {
     return (
       <div className="min-h-screen bg-felt flex items-center justify-center">

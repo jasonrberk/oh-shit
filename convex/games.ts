@@ -259,6 +259,31 @@ export const finalizeRound = mutation({
   },
 });
 
+export const deleteGame = mutation({
+  args: { gameId: v.id("games") },
+  handler: async (ctx, { gameId }) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new ConvexError("Not authenticated");
+
+    const game = await ctx.db.get(gameId);
+    if (!game) throw new ConvexError("Game not found");
+    if (game.createdBy !== identity.tokenIdentifier)
+      throw new ConvexError("Only the scorekeeper can delete this game");
+
+    const bids = await ctx.db.query("bids").withIndex("by_gameId", (q) => q.eq("gameId", gameId)).take(100);
+    for (const b of bids) await ctx.db.delete(b._id);
+
+    const results = await ctx.db.query("results").withIndex("by_gameId", (q) => q.eq("gameId", gameId)).take(100);
+    for (const r of results) await ctx.db.delete(r._id);
+
+    const rounds = await ctx.db.query("rounds").withIndex("by_gameId", (q) => q.eq("gameId", gameId)).take(20);
+    for (const r of rounds) await ctx.db.delete(r._id);
+
+    await ctx.db.delete(gameId);
+    return null;
+  },
+});
+
 export const lockBids = mutation({
   args: {
     roundId: v.id("rounds"),

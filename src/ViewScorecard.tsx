@@ -56,23 +56,12 @@ export default function ViewScorecard() {
   const { cumByRoundId, totals } = cumulativeByRound
   const maxScore = Math.max(...totals)
 
-  if (game === undefined || allRounds === undefined) {
-    return (
-      <div className="min-h-screen bg-felt flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <span className="font-serif text-gold" style={{ fontSize: '2rem', opacity: 0.2, animation: 'pulse 2s ease-in-out infinite' }}>♦</span>
-          <span className="font-sans text-cream-dim uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem', opacity: 0.4 }}>Loading</span>
-        </div>
-      </div>
-    )
-  }
-
   if (game === null) {
     return (
       <div className="min-h-screen bg-felt flex flex-col items-center justify-center gap-4">
         <span className="font-serif text-gold" style={{ fontSize: '2rem', opacity: 0.35 }}>♦</span>
-        <p className="font-sans text-cream-dim uppercase tracking-[0.25em]" style={{ fontSize: '0.7rem', opacity: 0.55 }}>
-          Game not found
+        <p className="font-sans text-cream-dim text-center tracking-[0.15em]" style={{ fontSize: '0.7rem', opacity: 0.55, maxWidth: '16rem', lineHeight: 1.6 }}>
+          Game not found — the scorekeeper may have removed it, or the code may be incorrect.
         </p>
         <button
           onClick={() => navigate('/')}
@@ -81,6 +70,17 @@ export default function ViewScorecard() {
         >
           ← Back to home
         </button>
+      </div>
+    )
+  }
+
+  if (game === undefined || allRounds === undefined) {
+    return (
+      <div className="min-h-screen bg-felt flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <span className="font-serif text-gold" style={{ fontSize: '2rem', opacity: 0.2, animation: 'pulse 2s ease-in-out infinite' }}>♦</span>
+          <span className="font-sans text-cream-dim uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem', opacity: 0.4 }}>Loading</span>
+        </div>
       </div>
     )
   }

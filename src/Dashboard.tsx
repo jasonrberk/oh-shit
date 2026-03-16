@@ -1,12 +1,19 @@
 import { useState } from 'react'
 import { UserButton, useUser } from '@clerk/clerk-react'
 import { useNavigate } from 'react-router-dom'
+import { useQuery, useMutation } from 'convex/react'
+import { api } from '../convex/_generated/api'
+import type { Id } from '../convex/_generated/dataModel'
 
 function Dashboard() {
   const { user } = useUser()
   const navigate = useNavigate()
   const [showCodeInput, setShowCodeInput] = useState(false)
   const [codeInput, setCodeInput] = useState('')
+  const [confirmDeleteId, setConfirmDeleteId] = useState<Id<'games'> | null>(null)
+
+  const myGames = useQuery(api.games.getMyGames)
+  const deleteGame = useMutation(api.games.deleteGame)
 
   return (
     <div className="min-h-screen bg-felt flex flex-col relative overflow-hidden">
@@ -182,6 +189,139 @@ function Dashboard() {
           </button>
 
         </div>
+
+        {/* My Games */}
+        {myGames !== undefined && (
+          <div className="mt-10">
+            {/* Section header */}
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-px flex-1 bg-gold" style={{ opacity: 0.08 }} />
+              <p
+                className="font-sans text-gold uppercase tracking-[0.38em]"
+                style={{ fontSize: '0.56rem', opacity: 0.45 }}
+              >
+                My Games
+              </p>
+              <div className="h-px flex-1 bg-gold" style={{ opacity: 0.08 }} />
+            </div>
+
+            {myGames.length === 0 ? (
+              <p
+                className="font-sans text-cream-dim text-center uppercase tracking-[0.3em]"
+                style={{ fontSize: '0.58rem', opacity: 0.28 }}
+              >
+                No games yet
+              </p>
+            ) : (
+              <div className="flex flex-col gap-2">
+                {myGames.map((game) => {
+                  const isArmed = confirmDeleteId === game._id
+                  const statusLabel =
+                    game.status === 'completed' ? 'Done'
+                    : game.status === 'playing' ? 'Playing'
+                    : 'Bidding'
+                  const statusColor =
+                    game.status === 'completed' ? 'oklch(65% 0.18 145)'
+                    : game.status === 'playing' ? 'oklch(78% 0.16 65)'
+                    : 'oklch(88% 0.02 85)'
+                  const statusOpacity =
+                    game.status === 'completed' ? 0.7
+                    : game.status === 'playing' ? 0.85
+                    : 0.38
+
+                  return (
+                    <div
+                      key={game._id as unknown as string}
+                      className="flex items-center gap-3 px-4 py-3 rounded border"
+                      style={{
+                        backgroundColor: 'oklch(21% 0.06 158)',
+                        borderColor: 'oklch(72% 0.13 82 / 12%)',
+                      }}
+                    >
+                      {/* Clickable row content */}
+                      <button
+                        className="flex items-center gap-3 flex-1 min-w-0 text-left"
+                        onClick={() => {
+                          setConfirmDeleteId(null)
+                          navigate(`/scorecard/${game.gameCode}`)
+                        }}
+                      >
+                        {/* Game code */}
+                        <span
+                          className="font-serif text-gold tracking-[0.18em] shrink-0"
+                          style={{
+                            fontSize: '0.78rem',
+                            padding: '0.1rem 0.4rem',
+                            borderRadius: '0.2rem',
+                            backgroundColor: 'oklch(72% 0.13 82 / 7%)',
+                            border: '1px solid oklch(72% 0.13 82 / 18%)',
+                          }}
+                        >
+                          {game.gameCode}
+                        </span>
+
+                        {/* Players */}
+                        <span
+                          className="font-sans text-cream truncate flex-1"
+                          style={{ fontSize: '0.68rem', opacity: 0.55 }}
+                        >
+                          {game.players.join(', ')}
+                        </span>
+
+                        {/* Status + round */}
+                        <span className="flex items-center gap-1.5 shrink-0">
+                          <span
+                            className="font-sans uppercase tracking-[0.18em]"
+                            style={{ fontSize: '0.5rem', color: statusColor, opacity: statusOpacity }}
+                          >
+                            {statusLabel}
+                          </span>
+                          <span
+                            className="font-sans text-cream-dim uppercase tracking-[0.12em]"
+                            style={{ fontSize: '0.5rem', opacity: 0.3 }}
+                          >
+                            Rnd {game.currentRound}/13
+                          </span>
+                        </span>
+                      </button>
+
+                      {/* Delete affordance */}
+                      <button
+                        className="shrink-0 flex items-center gap-1 px-2 py-1 rounded transition-all duration-150"
+                        style={{
+                          fontSize: '0.6rem',
+                          color: isArmed ? 'oklch(65% 0.22 25)' : 'oklch(88% 0.02 85)',
+                          opacity: isArmed ? 1 : 0.25,
+                          border: `1px solid ${isArmed ? 'oklch(65% 0.22 25 / 50%)' : 'transparent'}`,
+                          backgroundColor: isArmed ? 'oklch(65% 0.22 25 / 8%)' : 'transparent',
+                        }}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          if (isArmed) {
+                            deleteGame({ gameId: game._id }).catch(() => {})
+                            setConfirmDeleteId(null)
+                          } else {
+                            setConfirmDeleteId(game._id)
+                          }
+                        }}
+                        onBlur={() => {
+                          if (isArmed) setConfirmDeleteId(null)
+                        }}
+                      >
+                        {isArmed ? (
+                          <span className="font-sans uppercase tracking-[0.12em]">confirm?</span>
+                        ) : (
+                          <span>✕</span>
+                        )}
+                      </button>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+        )}
+
       </main>
 
     </div>
