@@ -448,17 +448,26 @@ export default function GameScreen() {
                       <StepBtn label="+" onClick={() => stepBid(1)} disabled={pendingBid === round.cardsPerPlayer} />
                     </div>
                   ) : (
-                    <span
-                      className="font-serif text-center"
-                      style={{
-                        width: '1.5rem',
-                        fontSize: '1.2rem',
-                        color: existingBid !== undefined ? 'oklch(72% 0.13 82)' : 'oklch(94% 0.02 85)',
-                        opacity: isFutureBidder ? 0.12 : 1,
-                      }}
-                    >
-                      {existingBid !== undefined ? existingBid.bid : '—'}
-                    </span>
+                    <div className="relative flex items-center justify-center" style={{ width: '1.5rem' }}>
+                      <span
+                        className="font-serif text-center"
+                        style={{
+                          fontSize: '1.2rem',
+                          color: existingBid !== undefined ? 'oklch(72% 0.13 82)' : 'oklch(94% 0.02 85)',
+                          opacity: isFutureBidder ? 0.12 : 1,
+                        }}
+                      >
+                        {existingBid !== undefined ? existingBid.bid : '—'}
+                      </span>
+                      {existingBid !== undefined && showTricks && trickVal === existingBid.bid && (
+                        <span
+                          className="font-sans absolute"
+                          style={{ fontSize: '0.65rem', color: 'oklch(72% 0.18 145)', lineHeight: 1, left: '100%', top: '20%' }}
+                        >
+                          ✓
+                        </span>
+                      )}
+                    </div>
                   )}
                   {showForbiddenHint && (
                     <span
