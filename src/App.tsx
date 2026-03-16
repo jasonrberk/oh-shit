@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Dashboard from './Dashboard'
 import NewScorecard from './NewScorecard'
 import GameScreen from './GameScreen'
+import ViewScorecard from './ViewScorecard'
 
 function SignInPage() {
   return (
@@ -69,6 +70,9 @@ function App() {
         } />
         <Route path="/scorecard/:code" element={
           <AuthGate><GameScreen /></AuthGate>
+        } />
+        <Route path="/view/:code" element={
+          <AuthGate><ViewScorecard /></AuthGate>
         } />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

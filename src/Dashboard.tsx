@@ -1,9 +1,12 @@
+import { useState } from 'react'
 import { UserButton, useUser } from '@clerk/clerk-react'
 import { useNavigate } from 'react-router-dom'
 
 function Dashboard() {
   const { user } = useUser()
   const navigate = useNavigate()
+  const [showCodeInput, setShowCodeInput] = useState(false)
+  const [codeInput, setCodeInput] = useState('')
 
   return (
     <div className="min-h-screen bg-felt flex flex-col relative overflow-hidden">
@@ -75,26 +78,77 @@ function Dashboard() {
           </button>
 
           {/* View a Scorecard — secondary */}
-          <button
-            className="group flex items-center gap-4 px-5 py-5 bg-felt-light rounded text-cream transition-all duration-150 active:scale-[0.98] border"
-            style={{ borderColor: 'oklch(72% 0.13 82 / 16%)' }}
-            onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'oklch(72% 0.13 82 / 40%)')}
-            onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'oklch(72% 0.13 82 / 16%)')}
-          >
-            <span className="text-gold text-xl leading-none" style={{ opacity: 0.6 }}>♣</span>
-            <span
-              className="font-serif flex-1 text-left text-gold tracking-[0.22em] uppercase"
-              style={{ fontSize: '0.88rem', opacity: 0.72 }}
+          {!showCodeInput ? (
+            <button
+              onClick={() => setShowCodeInput(true)}
+              className="group flex items-center gap-4 px-5 py-5 bg-felt-light rounded text-cream transition-all duration-150 active:scale-[0.98] border"
+              style={{ borderColor: 'oklch(72% 0.13 82 / 16%)' }}
+              onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'oklch(72% 0.13 82 / 40%)')}
+              onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'oklch(72% 0.13 82 / 16%)')}
             >
-              View a Scorecard
-            </span>
-            <span
-              className="text-gold text-sm transition-transform duration-150 group-hover:translate-x-0.5"
-              style={{ opacity: 0.28 }}
+              <span className="text-gold text-xl leading-none" style={{ opacity: 0.6 }}>♣</span>
+              <span
+                className="font-serif flex-1 text-left text-gold tracking-[0.22em] uppercase"
+                style={{ fontSize: '0.88rem', opacity: 0.72 }}
+              >
+                View a Scorecard
+              </span>
+              <span
+                className="text-gold text-sm transition-transform duration-150 group-hover:translate-x-0.5"
+                style={{ opacity: 0.28 }}
+              >
+                →
+              </span>
+            </button>
+          ) : (
+            <div
+              className="flex flex-col gap-3 px-5 py-4 bg-felt-light rounded border"
+              style={{ borderColor: 'oklch(72% 0.13 82 / 30%)' }}
             >
-              →
-            </span>
-          </button>
+              <p
+                className="font-sans text-gold uppercase tracking-[0.3em]"
+                style={{ fontSize: '0.58rem', opacity: 0.7 }}
+              >
+                Enter game code
+              </p>
+              <div className="flex gap-2">
+                <input
+                  autoFocus
+                  type="text"
+                  value={codeInput}
+                  maxLength={6}
+                  placeholder="XXXXXX"
+                  onChange={(e) => setCodeInput(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ''))}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && codeInput.length === 6) navigate(`/view/${codeInput}`)
+                    if (e.key === 'Escape') { setShowCodeInput(false); setCodeInput('') }
+                  }}
+                  className="flex-1 font-serif text-cream text-center tracking-[0.4em] uppercase rounded px-3 py-2 outline-none"
+                  style={{
+                    fontSize: '1.1rem',
+                    backgroundColor: 'oklch(20% 0.06 158)',
+                    border: '1px solid oklch(72% 0.13 82 / 25%)',
+                    caretColor: 'oklch(72% 0.13 82)',
+                  }}
+                />
+                <button
+                  onClick={() => { if (codeInput.length === 6) navigate(`/view/${codeInput}`) }}
+                  disabled={codeInput.length !== 6}
+                  className="px-4 py-2 rounded font-serif text-cream tracking-[0.15em] uppercase transition-all duration-150 active:scale-[0.96] disabled:opacity-30"
+                  style={{ fontSize: '0.78rem', backgroundColor: 'oklch(46% 0.18 25)' }}
+                >
+                  Go
+                </button>
+              </div>
+              <button
+                onClick={() => { setShowCodeInput(false); setCodeInput('') }}
+                className="font-sans text-gold self-start"
+                style={{ fontSize: '0.6rem', opacity: 0.4, letterSpacing: '0.1em' }}
+              >
+                cancel
+              </button>
+            </div>
+          )}
 
           {/* Play Online — disabled / coming soon */}
           <button

@@ -346,6 +346,17 @@ export const getResultsForGame = query({
   },
 });
 
+export const getRoundsForGame = query({
+  args: { gameId: v.id("games") },
+  handler: async (ctx, { gameId }) => {
+    return ctx.db
+      .query("rounds")
+      .withIndex("by_gameId", (q) => q.eq("gameId", gameId))
+      .order("asc")
+      .take(13);
+  },
+});
+
 export const getMyGames = query({
   args: {},
   handler: async (ctx) => {
