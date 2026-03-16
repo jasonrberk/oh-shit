@@ -150,12 +150,12 @@ export default function GameScreen() {
     return (
       <div className="min-h-screen bg-felt flex flex-col items-center justify-center gap-4">
         <span className="font-serif text-gold text-3xl" style={{ opacity: 0.35 }}>♦</span>
-        <p className="font-sans text-cream-dim text-center tracking-[0.15em] text-xs" style={{ opacity: 0.55, maxWidth: '16rem', lineHeight: 1.6 }}>
+        <p className="font-sans text-cream-dim text-center tracking-[0.15em] text-sm" style={{ opacity: 0.55, maxWidth: '16rem', lineHeight: 1.6 }}>
           Game not found — it may have been deleted.
         </p>
         <button
           onClick={() => navigate('/')}
-          className="font-sans text-gold rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 text-xs"
+          className="font-sans text-gold rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 text-sm"
           style={{ opacity: 0.5, letterSpacing: '0.08em' }}
         >
           ← Back to home
@@ -176,7 +176,7 @@ export default function GameScreen() {
             ♦
           </span>
           <span
-            className="font-sans text-cream-dim uppercase tracking-[0.3em] text-xs"
+            className="font-sans text-cream-dim uppercase tracking-[0.3em] text-sm"
             style={{ opacity: 0.4 }}
             aria-hidden="true"
           >
@@ -217,7 +217,7 @@ export default function GameScreen() {
         <button
           onClick={() => navigate('/')}
           aria-label="Back to dashboard"
-          className="font-sans text-gold opacity-75 hover:opacity-85 transition-opacity rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 text-xs"
+          className="font-sans text-gold opacity-75 hover:opacity-85 transition-opacity rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 text-sm"
           style={{ letterSpacing: '0.05em' }}
         >
           ← Back
@@ -225,7 +225,7 @@ export default function GameScreen() {
 
         <div className="flex-1 flex items-center justify-center gap-2">
           <span
-            className="font-sans text-cream-dim uppercase tracking-[0.3em] text-xs"
+            className="font-sans text-cream-dim uppercase tracking-[0.3em] text-sm"
             style={{ opacity: 0.7 }}
           >
             Game
@@ -249,7 +249,7 @@ export default function GameScreen() {
           <span
             role="status"
             aria-live="polite"
-            className="font-sans text-cream-dim text-xs"
+            className="font-sans text-cream-dim text-sm"
             style={{ opacity: copyFeedback ? 0.55 : 0, letterSpacing: '0.1em' }}
           >
             {copyFeedback ? 'copied' : ''}
@@ -283,7 +283,7 @@ export default function GameScreen() {
               return (
                 <div key={i} className="flex flex-col items-center" style={{ gap: '0.2rem' }}>
                   <span
-                    className="font-sans truncate w-full text-center text-xs"
+                    className="font-sans truncate w-full text-center text-sm"
                     style={{
                       color: 'var(--color-gold)',
                       opacity: isLeader ? 0.9 : 0.55,
@@ -313,7 +313,7 @@ export default function GameScreen() {
         {/* Ornamental divider */}
         <div className="flex items-center gap-3" style={{ marginTop: '-0.25rem', marginBottom: '-0.25rem' }}>
           <div className="h-px flex-1 bg-gold" style={{ opacity: 0.08 }} />
-          <span className="text-gold text-xs" style={{ opacity: 0.18 }}>♦</span>
+          <span className="text-gold text-sm" style={{ opacity: 0.18 }}>♦</span>
           <div className="h-px flex-1 bg-gold" style={{ opacity: 0.08 }} />
         </div>
 
@@ -321,7 +321,7 @@ export default function GameScreen() {
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-baseline gap-2.5 min-w-0">
             <span
-              className="font-serif text-gold flex-shrink-0 text-xs"
+              className="font-serif text-gold flex-shrink-0 text-sm"
               style={{ letterSpacing: '0.18em', opacity: 0.7 }}
             >
               RND {round.roundNumber}
@@ -356,7 +356,7 @@ export default function GameScreen() {
         {round.roundNumber > 1 && !round.trumpSuit && !isPlaying && (
           <div>
             <p
-              className="font-sans text-cream-dim uppercase mb-2.5 text-xs"
+              className="font-sans text-cream-dim uppercase mb-2.5 text-sm"
               style={{ opacity: 0.7, letterSpacing: '0.28em' }}
             >
               Select trump suit
@@ -396,14 +396,14 @@ export default function GameScreen() {
           {/* Column headers */}
           <div />
           <div
-            className="font-sans text-cream-dim uppercase text-center text-xs"
+            className="font-sans text-cream-dim uppercase text-center text-sm"
             style={{ opacity: 0.7, letterSpacing: '0.28em' }}
           >
             Bids
           </div>
           {showTricks && (
             <div
-              className="font-sans text-cream-dim uppercase text-center text-xs"
+              className="font-sans text-cream-dim uppercase text-center text-sm"
               style={{ opacity: 0.7, letterSpacing: '0.28em' }}
             >
               Tricks
@@ -440,7 +440,7 @@ export default function GameScreen() {
                   </span>
                   {isDealer && (
                     <span
-                      className="flex-shrink-0 flex items-center justify-center font-serif text-gold text-xs"
+                      className="flex-shrink-0 flex items-center justify-center font-serif text-gold text-sm"
                       style={{
                         width: '1.1rem',
                         height: '1.1rem',
@@ -481,7 +481,7 @@ export default function GameScreen() {
                       </span>
                       {existingBid !== undefined && showTricks && trickVal === existingBid.bid && (
                         <span
-                          className="font-sans absolute text-xs"
+                          className="font-sans absolute text-sm"
                           style={{ color: 'var(--color-success)', lineHeight: 1, left: '100%', top: '20%' }}
                         >
                           ✓
@@ -491,7 +491,7 @@ export default function GameScreen() {
                   )}
                   {showForbiddenHint && (
                     <span
-                      className="font-sans text-cream-dim text-center text-xs"
+                      className="font-sans text-cream-dim text-center text-sm"
                       style={{ opacity: 0.45, letterSpacing: '0.02em' }}
                     >
                       anything but {forbiddenBid}
@@ -529,7 +529,7 @@ export default function GameScreen() {
         {/* Trump required notice */}
         {!isPlaying && nextBidderIndex !== null && !trumpReady && (
           <p
-            className="font-sans text-center text-xs"
+            className="font-sans text-center text-sm"
             style={{ color: 'var(--color-gold)', opacity: 0.55, letterSpacing: '0.06em' }}
           >
             Select a trump suit to continue

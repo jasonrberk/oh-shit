@@ -46,7 +46,7 @@ function Dashboard() {
         {/* Player welcome */}
         <div className="mb-9">
           <p
-            className="font-sans text-cream-dim uppercase tracking-[0.45em] mb-2 text-xs"
+            className="font-sans text-cream-dim uppercase tracking-[0.45em] mb-2 text-sm"
             style={{ opacity: 0.5 }}
           >
             Welcome back
@@ -59,7 +59,7 @@ function Dashboard() {
         {/* Ornamental divider */}
         <div className="flex items-center gap-3 mb-9">
           <div className="h-px flex-1 bg-gold" style={{ opacity: 0.1 }} />
-          <span className="text-gold text-xs" style={{ opacity: 0.22 }}>♦</span>
+          <span className="text-gold text-sm" style={{ opacity: 0.22 }}>♦</span>
           <div className="h-px flex-1 bg-gold" style={{ opacity: 0.1 }} />
         </div>
 
@@ -114,7 +114,7 @@ function Dashboard() {
               style={{ borderColor: 'oklch(72% 0.13 82 / 30%)' }}
             >
               <p
-                className="font-sans text-gold uppercase tracking-[0.3em] text-xs"
+                className="font-sans text-gold uppercase tracking-[0.3em] text-sm"
                 style={{ opacity: 0.7 }}
               >
                 Enter game code
@@ -149,7 +149,7 @@ function Dashboard() {
               </div>
               <button
                 onClick={() => { setShowCodeInput(false); setCodeInput('') }}
-                className="font-sans text-gold self-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 rounded px-1 text-xs"
+                className="font-sans text-gold self-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 rounded px-1 text-sm"
                 style={{ opacity: 0.4, letterSpacing: '0.1em' }}
               >
                 cancel
@@ -177,7 +177,7 @@ function Dashboard() {
                 Play Online
               </p>
               <p
-                className="font-sans tracking-[0.35em] uppercase mt-1 text-xs"
+                className="font-sans tracking-[0.35em] uppercase mt-1 text-sm"
                 style={{ color: 'oklch(94% 0.02 85)', opacity: 0.18 }}
               >
                 Coming Soon
@@ -193,7 +193,7 @@ function Dashboard() {
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px flex-1 bg-gold" style={{ opacity: 0.08 }} />
             <h2
-              className="font-sans text-gold uppercase tracking-[0.38em] text-xs"
+              className="font-sans text-gold uppercase tracking-[0.38em] text-sm"
               style={{ opacity: 0.45 }}
             >
               My Games
@@ -220,7 +220,7 @@ function Dashboard() {
             </div>
           ) : myGames.length === 0 ? (
             <p
-              className="font-sans text-cream-dim text-center uppercase tracking-[0.3em] text-xs"
+              className="font-sans text-cream-dim text-center uppercase tracking-[0.3em] text-sm"
               style={{ opacity: 0.28 }}
             >
               No games yet
@@ -274,7 +274,7 @@ function Dashboard() {
 
                       {/* Players */}
                       <span
-                        className="font-sans text-cream truncate flex-1 text-xs"
+                        className="font-sans text-cream truncate flex-1 text-sm"
                         style={{ opacity: 0.55 }}
                       >
                         {game.players.join(', ')}
@@ -283,13 +283,13 @@ function Dashboard() {
                       {/* Status + round */}
                       <span className="flex items-center gap-1.5 shrink-0">
                         <span
-                          className="font-sans uppercase tracking-[0.18em] text-xs"
+                          className="font-sans uppercase tracking-[0.18em] text-sm"
                           style={{ color: statusColor, opacity: statusOpacity }}
                         >
                           {statusLabel}
                         </span>
                         <span
-                          className="font-sans text-cream-dim uppercase tracking-[0.12em] text-xs"
+                          className="font-sans text-cream-dim uppercase tracking-[0.12em] text-sm"
                           style={{ opacity: 0.3 }}
                         >
                           Rnd {game.currentRound}/13
@@ -300,7 +300,7 @@ function Dashboard() {
                     {/* Delete affordance */}
                     <button
                       aria-label={isArmed ? `Confirm delete game ${game.gameCode}` : `Delete game ${game.gameCode}`}
-                      className="shrink-0 flex items-center gap-1 px-2 py-1 rounded transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 text-xs"
+                      className="shrink-0 flex items-center gap-1 px-2 py-1 rounded transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 text-sm"
                       style={{
                         color: isArmed ? 'var(--color-danger)' : 'var(--color-cream-soft)',
                         opacity: isArmed ? 1 : 0.25,

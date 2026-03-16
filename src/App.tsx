@@ -23,14 +23,14 @@ function SignInPage() {
               Oh Shit!
             </h1>
             <p
-              className="font-serif text-gold tracking-[0.4em] uppercase mt-3 inline-block px-4 py-1.5 rounded-full border border-gold text-xs"
+              className="font-serif text-gold tracking-[0.4em] uppercase mt-3 inline-block px-4 py-1.5 rounded-full border border-gold text-sm"
               style={{ opacity: 0.9, borderColor: 'oklch(72% 0.13 82 / 35%)', backgroundColor: 'oklch(72% 0.13 82 / 10%)' }}
             >
               Card Game Companion
             </p>
             <div className="flex items-center gap-3 mt-4">
               <div className="h-px flex-1 bg-gold" style={{ opacity: 0.2 }} />
-              <span className="text-gold text-xs" style={{ opacity: 0.35 }}>♦</span>
+              <span className="text-gold text-sm" style={{ opacity: 0.35 }}>♦</span>
               <div className="h-px flex-1 bg-gold" style={{ opacity: 0.2 }} />
             </div>
             <p className="text-cream-dim mt-4 text-base tracking-wide" style={{ opacity: 0.6 }}>

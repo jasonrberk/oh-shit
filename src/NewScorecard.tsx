@@ -163,7 +163,7 @@ export default function NewScorecard() {
                   aria-label={`Set ${names[i] || label} as dealer`}
                 >
                   <span
-                    className="font-serif text-xs"
+                    className="font-serif text-sm"
                     style={{
                       color: dealerIndex === i ? 'oklch(72% 0.13 82)' : 'oklch(72% 0.13 82 / 50%)',
                     }}
@@ -199,7 +199,7 @@ export default function NewScorecard() {
           {/* Ornamental divider */}
           <div className="flex items-center gap-3 my-8">
             <div className="h-px flex-1 bg-gold" style={{ opacity: 0.1 }} />
-            <span className="text-gold text-xs" style={{ opacity: 0.22 }}>♦</span>
+            <span className="text-gold text-sm" style={{ opacity: 0.22 }}>♦</span>
             <div className="h-px flex-1 bg-gold" style={{ opacity: 0.1 }} />
           </div>
 
@@ -208,7 +208,7 @@ export default function NewScorecard() {
             <button
               type="button"
               onClick={() => navigate('/')}
-              className="flex-1 px-4 py-4 bg-felt-light rounded font-serif text-gold tracking-[0.22em] uppercase transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 text-xs"
+              className="flex-1 px-4 py-4 bg-felt-light rounded font-serif text-gold tracking-[0.22em] uppercase transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 text-sm"
               style={{
                 border: '1px solid oklch(72% 0.13 82 / 16%)',
               }}
@@ -220,7 +220,7 @@ export default function NewScorecard() {
             <button
               type="submit"
               disabled={isSubmitting || !isFormValid}
-              className="flex-[2] px-4 py-4 bg-crimson hover:bg-crimson-bright rounded font-serif text-cream tracking-[0.18em] uppercase transition-all duration-150 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 text-xs"
+              className="flex-[2] px-4 py-4 bg-crimson hover:bg-crimson-bright rounded font-serif text-cream tracking-[0.18em] uppercase transition-all duration-150 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 text-sm"
             >
               {isSubmitting ? 'Creating…' : 'Create Scorecard'}
             </button>
