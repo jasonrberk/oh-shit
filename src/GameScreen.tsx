@@ -85,7 +85,11 @@ export default function GameScreen() {
     return candidate >= 0 ? candidate : null
   }, [round, bids])
 
-  useEffect(() => { setPendingBid(0) }, [nextBidderIndex])
+  useEffect(() => {
+    // If forbidden bid is 0 (dealer must bid at least 1), start at 1
+    const startBid = (forbiddenBid === 0) ? 1 : 0
+    setPendingBid(startBid)
+  }, [nextBidderIndex])
 
   const scores = useMemo<number[]>(() => {
     const totals = [0, 0, 0, 0]
@@ -459,14 +463,14 @@ export default function GameScreen() {
                 <div className="flex flex-col items-center gap-0.5">
                   {isNextBidder ? (
                     <div className="flex items-center gap-2">
-                      <StepBtn label="−" onClick={() => stepBid(-1)} disabled={pendingBid === 0} />
+                      <StepBtn label="−" onClick={() => stepBid(-1)} disabled={!trumpReady || pendingBid === 0} />
                       <span
                         className="font-serif text-cream text-center"
-                        style={{ width: '1.5rem', fontSize: '1.2rem' }}
+                        style={{ width: '1.5rem', fontSize: '1.2rem', opacity: trumpReady ? 1 : 0.35 }}
                       >
                         {pendingBid}
                       </span>
-                      <StepBtn label="+" onClick={() => stepBid(1)} disabled={pendingBid === round.cardsPerPlayer} />
+                      <StepBtn label="+" onClick={() => stepBid(1)} disabled={!trumpReady || pendingBid === round.cardsPerPlayer} />
                     </div>
                   ) : (
                     <div className="relative flex items-center justify-center" style={{ width: '1.5rem' }}>
@@ -541,7 +545,8 @@ export default function GameScreen() {
         {!isPlaying && nextBidderIndex !== null && trumpReady && (
           <button
             onClick={handleConfirmBid}
-            className="w-full py-5 rounded font-serif text-cream tracking-[0.2em] uppercase bg-crimson hover:bg-crimson-bright transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+            disabled={nextBidderIndex === round?.dealerIndex && pendingBid === forbiddenBid}
+            className="w-full py-5 rounded font-serif text-cream tracking-[0.2em] uppercase bg-crimson hover:bg-crimson-bright transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 disabled:opacity-40 disabled:pointer-events-none"
             style={{ fontSize: '0.78rem', marginTop: '0.25rem' }}
           >
             Confirm {game.players[nextBidderIndex]}'s Bid
