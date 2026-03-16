@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .env.local
+
+# Playwright MCP screenshots/logs
+.playwright-mcp
