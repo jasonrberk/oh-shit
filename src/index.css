@@ -1,16 +1,35 @@
 @import "tailwindcss";
 
 @theme {
-  /* Card room palette */
-  --color-felt: oklch(26% 0.07 158);
-  --color-felt-light: oklch(32% 0.07 158);
-  --color-felt-lighter: oklch(38% 0.07 158);
+  /* Card room palette — felt scale (dark → light) */
+  --color-felt-deeper: oklch(20% 0.07 158);   /* input backgrounds, footer insets */
+  --color-felt-deep: oklch(22% 0.07 158);     /* card surfaces, scoreboards */
+  --color-felt-inset: oklch(24% 0.08 158);    /* active / in-progress rows */
+  --color-felt: oklch(26% 0.07 158);          /* page background */
+  --color-felt-raised: oklch(28% 0.07 158);   /* raised interactive elements */
+  --color-felt-light: oklch(32% 0.07 158);    /* headers, elevated surfaces */
+  --color-felt-lighter: oklch(38% 0.07 158);  /* accents */
+
+  /* Cream scale */
   --color-cream: oklch(94% 0.02 85);
+  --color-cream-soft: oklch(88% 0.02 85);     /* soft near-cream, black suit symbols */
   --color-cream-dim: oklch(68% 0.025 85);
+
+  /* Gold scale */
   --color-gold: oklch(72% 0.13 82);
   --color-gold-dim: oklch(60% 0.10 82);
+
+  /* Crimson scale */
   --color-crimson: oklch(46% 0.18 25);
   --color-crimson-bright: oklch(52% 0.21 25);
+  --color-crimson-muted: oklch(65% 0.18 25);  /* suit symbols, validation errors */
+  --color-crimson-well: oklch(22% 0.06 20);   /* deep red surface for suit selector */
+
+  /* Semantic */
+  --color-success: oklch(72% 0.18 145);           /* perfect bid indicator */
+  --color-status-complete: oklch(65% 0.18 145);   /* "Done" game status */
+  --color-status-playing: oklch(78% 0.16 65);     /* "Playing" game status */
+  --color-danger: oklch(65% 0.22 25);             /* destructive action confirmation */
 
   /* Typography */
   --font-sans: 'Lato', 'Helvetica Neue', sans-serif;
@@ -26,4 +45,12 @@ body {
 @keyframes pulse {
   0%, 100% { opacity: 0.2; transform: scale(1); }
   50% { opacity: 0.5; transform: scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

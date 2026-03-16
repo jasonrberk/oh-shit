@@ -47,9 +47,9 @@ function Dashboard() {
           >
             Welcome back
           </p>
-          <p className="font-serif text-cream tracking-wide" style={{ fontSize: '1.6rem' }}>
+          <h2 className="font-serif text-cream tracking-wide" style={{ fontSize: '1.6rem' }}>
             {user?.firstName ?? 'Player'}
-          </p>
+          </h2>
         </div>
 
         {/* Ornamental divider */}
@@ -65,9 +65,7 @@ function Dashboard() {
           {/* Start a Scorecard — primary */}
           <button
             onClick={() => navigate('/scorecard/new')}
-            className="group relative flex items-center gap-4 px-5 py-5 bg-crimson rounded text-cream transition-all duration-150 active:scale-[0.98]"
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'oklch(52% 0.21 25)')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '')}
+            className="group relative flex items-center gap-4 px-5 py-5 bg-crimson hover:bg-crimson-bright rounded text-cream transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
           >
             <span className="text-xl leading-none" style={{ opacity: 0.7 }}>♦</span>
             <span
@@ -88,7 +86,7 @@ function Dashboard() {
           {!showCodeInput ? (
             <button
               onClick={() => setShowCodeInput(true)}
-              className="group flex items-center gap-4 px-5 py-5 bg-felt-light rounded text-cream transition-all duration-150 active:scale-[0.98] border"
+              className="group flex items-center gap-4 px-5 py-5 bg-felt-light rounded text-cream transition-all duration-150 active:scale-[0.98] border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
               style={{ borderColor: 'oklch(72% 0.13 82 / 16%)' }}
               onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'oklch(72% 0.13 82 / 40%)')}
               onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'oklch(72% 0.13 82 / 16%)')}
@@ -122,6 +120,7 @@ function Dashboard() {
                 <input
                   autoFocus
                   type="text"
+                  aria-label="Game code"
                   value={codeInput}
                   maxLength={6}
                   placeholder="XXXXXX"
@@ -130,10 +129,10 @@ function Dashboard() {
                     if (e.key === 'Enter' && codeInput.length === 6) navigate(`/view/${codeInput}`)
                     if (e.key === 'Escape') { setShowCodeInput(false); setCodeInput('') }
                   }}
-                  className="flex-1 font-serif text-cream text-center tracking-[0.4em] uppercase rounded px-3 py-2 outline-none"
+                  className="flex-1 font-serif text-cream text-center tracking-[0.4em] uppercase rounded px-3 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
                   style={{
                     fontSize: '1.1rem',
-                    backgroundColor: 'oklch(20% 0.06 158)',
+                    backgroundColor: 'var(--color-felt-deeper)',
                     border: '1px solid oklch(72% 0.13 82 / 25%)',
                     caretColor: 'oklch(72% 0.13 82)',
                   }}
@@ -141,15 +140,15 @@ function Dashboard() {
                 <button
                   onClick={() => { if (codeInput.length === 6) navigate(`/view/${codeInput}`) }}
                   disabled={codeInput.length !== 6}
-                  className="px-4 py-2 rounded font-serif text-cream tracking-[0.15em] uppercase transition-all duration-150 active:scale-[0.96] disabled:opacity-30"
-                  style={{ fontSize: '0.78rem', backgroundColor: 'oklch(46% 0.18 25)' }}
+                  className="px-4 py-2 rounded font-serif text-cream tracking-[0.15em] uppercase bg-crimson hover:bg-crimson-bright transition-all duration-150 active:scale-[0.96] disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+                  style={{ fontSize: '0.78rem' }}
                 >
                   Go
                 </button>
               </div>
               <button
                 onClick={() => { setShowCodeInput(false); setCodeInput('') }}
-                className="font-sans text-gold self-start"
+                className="font-sans text-gold self-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 rounded px-1"
                 style={{ fontSize: '0.6rem', opacity: 0.4, letterSpacing: '0.1em' }}
               >
                 cancel
@@ -160,11 +159,8 @@ function Dashboard() {
           {/* Play Online — disabled / coming soon */}
           <button
             disabled
-            className="flex items-center gap-4 px-5 py-5 rounded cursor-not-allowed border"
-            style={{
-              backgroundColor: 'oklch(21% 0.05 158)',
-              borderColor: 'oklch(94% 0.02 85 / 5%)',
-            }}
+            className="flex items-center gap-4 px-5 py-5 rounded cursor-not-allowed border bg-felt-deep"
+            style={{ borderColor: 'oklch(94% 0.02 85 / 5%)' }}
           >
             <span
               className="text-xl leading-none"
@@ -191,136 +187,152 @@ function Dashboard() {
         </div>
 
         {/* My Games */}
-        {myGames !== undefined && (
-          <div className="mt-10">
-            {/* Section header */}
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-px flex-1 bg-gold" style={{ opacity: 0.08 }} />
-              <p
-                className="font-sans text-gold uppercase tracking-[0.38em]"
-                style={{ fontSize: '0.56rem', opacity: 0.45 }}
-              >
-                My Games
-              </p>
-              <div className="h-px flex-1 bg-gold" style={{ opacity: 0.08 }} />
+        <div className="mt-10">
+          {/* Section header */}
+          <div className="flex items-center gap-3 mb-4">
+            <div className="h-px flex-1 bg-gold" style={{ opacity: 0.08 }} />
+            <h2
+              className="font-sans text-gold uppercase tracking-[0.38em]"
+              style={{ fontSize: '0.56rem', opacity: 0.45 }}
+            >
+              My Games
+            </h2>
+            <div className="h-px flex-1 bg-gold" style={{ opacity: 0.08 }} />
+          </div>
+
+          {myGames === undefined ? (
+            <div className="flex flex-col gap-2" role="status" aria-label="Loading your games">
+              {[0, 1, 2].map((i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-3 px-4 py-3 rounded border animate-pulse"
+                  style={{
+                    backgroundColor: 'var(--color-felt-deep)',
+                    borderColor: 'oklch(72% 0.13 82 / 12%)',
+                  }}
+                >
+                  <div className="h-4 rounded shrink-0" style={{ width: '4rem', backgroundColor: 'oklch(72% 0.13 82 / 10%)' }} />
+                  <div className="h-3 rounded flex-1" style={{ backgroundColor: 'oklch(72% 0.13 82 / 8%)' }} />
+                  <div className="h-3 rounded shrink-0" style={{ width: '3rem', backgroundColor: 'oklch(72% 0.13 82 / 8%)' }} />
+                </div>
+              ))}
             </div>
+          ) : myGames.length === 0 ? (
+            <p
+              className="font-sans text-cream-dim text-center uppercase tracking-[0.3em]"
+              style={{ fontSize: '0.58rem', opacity: 0.28 }}
+            >
+              No games yet
+            </p>
+          ) : (
+            <div className="flex flex-col gap-2">
+              {myGames.map((game) => {
+                const isArmed = confirmDeleteId === game._id
+                const statusLabel =
+                  game.status === 'completed' ? 'Done'
+                  : game.status === 'playing' ? 'Playing'
+                  : 'Bidding'
+                const statusColor =
+                  game.status === 'completed' ? 'var(--color-status-complete)'
+                  : game.status === 'playing' ? 'var(--color-status-playing)'
+                  : 'var(--color-cream-soft)'
+                const statusOpacity =
+                  game.status === 'completed' ? 0.7
+                  : game.status === 'playing' ? 0.85
+                  : 0.38
 
-            {myGames.length === 0 ? (
-              <p
-                className="font-sans text-cream-dim text-center uppercase tracking-[0.3em]"
-                style={{ fontSize: '0.58rem', opacity: 0.28 }}
-              >
-                No games yet
-              </p>
-            ) : (
-              <div className="flex flex-col gap-2">
-                {myGames.map((game) => {
-                  const isArmed = confirmDeleteId === game._id
-                  const statusLabel =
-                    game.status === 'completed' ? 'Done'
-                    : game.status === 'playing' ? 'Playing'
-                    : 'Bidding'
-                  const statusColor =
-                    game.status === 'completed' ? 'oklch(65% 0.18 145)'
-                    : game.status === 'playing' ? 'oklch(78% 0.16 65)'
-                    : 'oklch(88% 0.02 85)'
-                  const statusOpacity =
-                    game.status === 'completed' ? 0.7
-                    : game.status === 'playing' ? 0.85
-                    : 0.38
-
-                  return (
-                    <div
-                      key={game._id as unknown as string}
-                      className="flex items-center gap-3 px-4 py-3 rounded border"
-                      style={{
-                        backgroundColor: 'oklch(21% 0.06 158)',
-                        borderColor: 'oklch(72% 0.13 82 / 12%)',
+                return (
+                  <div
+                    key={game._id as unknown as string}
+                    className="flex items-center gap-3 px-4 py-3 rounded border"
+                    style={{
+                      backgroundColor: 'var(--color-felt-deep)',
+                      borderColor: 'oklch(72% 0.13 82 / 12%)',
+                    }}
+                  >
+                    {/* Clickable row content */}
+                    <button
+                      className="flex items-center gap-3 flex-1 min-w-0 text-left rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+                      onClick={() => {
+                        setConfirmDeleteId(null)
+                        navigate(`/scorecard/${game.gameCode}`)
                       }}
                     >
-                      {/* Clickable row content */}
-                      <button
-                        className="flex items-center gap-3 flex-1 min-w-0 text-left"
-                        onClick={() => {
-                          setConfirmDeleteId(null)
-                          navigate(`/scorecard/${game.gameCode}`)
-                        }}
-                      >
-                        {/* Game code */}
-                        <span
-                          className="font-serif text-gold tracking-[0.18em] shrink-0"
-                          style={{
-                            fontSize: '0.78rem',
-                            padding: '0.1rem 0.4rem',
-                            borderRadius: '0.2rem',
-                            backgroundColor: 'oklch(72% 0.13 82 / 7%)',
-                            border: '1px solid oklch(72% 0.13 82 / 18%)',
-                          }}
-                        >
-                          {game.gameCode}
-                        </span>
-
-                        {/* Players */}
-                        <span
-                          className="font-sans text-cream truncate flex-1"
-                          style={{ fontSize: '0.68rem', opacity: 0.55 }}
-                        >
-                          {game.players.join(', ')}
-                        </span>
-
-                        {/* Status + round */}
-                        <span className="flex items-center gap-1.5 shrink-0">
-                          <span
-                            className="font-sans uppercase tracking-[0.18em]"
-                            style={{ fontSize: '0.5rem', color: statusColor, opacity: statusOpacity }}
-                          >
-                            {statusLabel}
-                          </span>
-                          <span
-                            className="font-sans text-cream-dim uppercase tracking-[0.12em]"
-                            style={{ fontSize: '0.5rem', opacity: 0.3 }}
-                          >
-                            Rnd {game.currentRound}/13
-                          </span>
-                        </span>
-                      </button>
-
-                      {/* Delete affordance */}
-                      <button
-                        className="shrink-0 flex items-center gap-1 px-2 py-1 rounded transition-all duration-150"
+                      {/* Game code */}
+                      <span
+                        className="font-serif text-gold tracking-[0.18em] shrink-0"
                         style={{
-                          fontSize: '0.6rem',
-                          color: isArmed ? 'oklch(65% 0.22 25)' : 'oklch(88% 0.02 85)',
-                          opacity: isArmed ? 1 : 0.25,
-                          border: `1px solid ${isArmed ? 'oklch(65% 0.22 25 / 50%)' : 'transparent'}`,
-                          backgroundColor: isArmed ? 'oklch(65% 0.22 25 / 8%)' : 'transparent',
-                        }}
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          if (isArmed) {
-                            deleteGame({ gameId: game._id }).catch(() => {})
-                            setConfirmDeleteId(null)
-                          } else {
-                            setConfirmDeleteId(game._id)
-                          }
-                        }}
-                        onBlur={() => {
-                          if (isArmed) setConfirmDeleteId(null)
+                          fontSize: '0.78rem',
+                          padding: '0.1rem 0.4rem',
+                          borderRadius: '0.2rem',
+                          backgroundColor: 'oklch(72% 0.13 82 / 7%)',
+                          border: '1px solid oklch(72% 0.13 82 / 18%)',
                         }}
                       >
-                        {isArmed ? (
-                          <span className="font-sans uppercase tracking-[0.12em]">confirm?</span>
-                        ) : (
-                          <span>✕</span>
-                        )}
-                      </button>
-                    </div>
-                  )
-                })}
-              </div>
-            )}
-          </div>
-        )}
+                        {game.gameCode}
+                      </span>
+
+                      {/* Players */}
+                      <span
+                        className="font-sans text-cream truncate flex-1"
+                        style={{ fontSize: '0.68rem', opacity: 0.55 }}
+                      >
+                        {game.players.join(', ')}
+                      </span>
+
+                      {/* Status + round */}
+                      <span className="flex items-center gap-1.5 shrink-0">
+                        <span
+                          className="font-sans uppercase tracking-[0.18em]"
+                          style={{ fontSize: '0.5rem', color: statusColor, opacity: statusOpacity }}
+                        >
+                          {statusLabel}
+                        </span>
+                        <span
+                          className="font-sans text-cream-dim uppercase tracking-[0.12em]"
+                          style={{ fontSize: '0.5rem', opacity: 0.3 }}
+                        >
+                          Rnd {game.currentRound}/13
+                        </span>
+                      </span>
+                    </button>
+
+                    {/* Delete affordance */}
+                    <button
+                      aria-label={isArmed ? `Confirm delete game ${game.gameCode}` : `Delete game ${game.gameCode}`}
+                      className="shrink-0 flex items-center gap-1 px-2 py-1 rounded transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+                      style={{
+                        fontSize: '0.6rem',
+                        color: isArmed ? 'var(--color-danger)' : 'var(--color-cream-soft)',
+                        opacity: isArmed ? 1 : 0.25,
+                        border: `1px solid ${isArmed ? 'color-mix(in oklch, var(--color-danger) 50%, transparent)' : 'transparent'}`,
+                        backgroundColor: isArmed ? 'color-mix(in oklch, var(--color-danger) 8%, transparent)' : 'transparent',
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        if (isArmed) {
+                          deleteGame({ gameId: game._id }).catch(() => {})
+                          setConfirmDeleteId(null)
+                        } else {
+                          setConfirmDeleteId(game._id)
+                        }
+                      }}
+                      onBlur={() => {
+                        if (isArmed) setConfirmDeleteId(null)
+                      }}
+                    >
+                      {isArmed ? (
+                        <span className="font-sans uppercase tracking-[0.12em]">confirm?</span>
+                      ) : (
+                        <span aria-hidden="true">✕</span>
+                      )}
+                    </button>
+                  </div>
+                )
+              })}
+            </div>
+          )}
+        </div>
 
       </main>
 

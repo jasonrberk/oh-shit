@@ -19,7 +19,7 @@ function isRedSuit(suit: TrumpSuit) {
 }
 
 function suitColor(suit: TrumpSuit) {
-  return isRedSuit(suit) ? 'oklch(65% 0.18 25)' : 'oklch(88% 0.02 85)'
+  return isRedSuit(suit) ? 'var(--color-crimson-muted)' : 'var(--color-cream-soft)'
 }
 
 function StepBtn({
@@ -30,15 +30,14 @@ function StepBtn({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="flex items-center justify-center flex-shrink-0 transition-all duration-100 active:scale-90 disabled:opacity-20"
+      className="flex items-center justify-center flex-shrink-0 transition-all duration-100 active:scale-90 disabled:opacity-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 bg-felt-raised"
       style={{
-        width: '2rem',
-        height: '2rem',
+        width: '2.75rem',
+        height: '2.75rem',
         borderRadius: '50%',
-        backgroundColor: 'oklch(28% 0.07 158)',
         border: '1px solid oklch(72% 0.13 82 / 30%)',
         fontSize: '1.1rem',
-        color: 'oklch(94% 0.02 85)',
+        color: 'var(--color-cream)',
         lineHeight: 1,
       }}
     >
@@ -96,10 +95,11 @@ export default function GameScreen() {
 
   // Per-round results keyed by roundNumber
   const roundResults = useMemo(() => {
-    const byRound: Record<number, { playerIndex: number; bid: number; tricks: number; points: number }[]> = {}
+    const byRound: Record<string, { playerIndex: number; bid: number; tricks: number; points: number }[]> = {}
     for (const r of results ?? []) {
-      if (!byRound[r.roundId as unknown as number]) byRound[r.roundId as unknown as number] = []
-      byRound[r.roundId as unknown as number].push(r)
+      const key = r.roundId as unknown as string
+      if (!byRound[key]) byRound[key] = []
+      byRound[key].push(r)
     }
     return byRound
   }, [results])
@@ -152,7 +152,7 @@ export default function GameScreen() {
         </p>
         <button
           onClick={() => navigate('/')}
-          className="font-sans text-gold"
+          className="font-sans text-gold rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
           style={{ fontSize: '0.7rem', opacity: 0.5, letterSpacing: '0.08em' }}
         >
           ← Back to home
@@ -164,16 +164,18 @@ export default function GameScreen() {
   if (!game || !round) {
     return (
       <div className="min-h-screen bg-felt flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-4" role="status" aria-label="Loading game">
           <span
             className="font-serif text-gold"
             style={{ fontSize: '2rem', opacity: 0.2, animation: 'pulse 2s ease-in-out infinite' }}
+            aria-hidden="true"
           >
             ♦
           </span>
           <span
             className="font-sans text-cream-dim uppercase tracking-[0.3em]"
             style={{ fontSize: '0.65rem', opacity: 0.4 }}
+            aria-hidden="true"
           >
             Loading
           </span>
@@ -210,10 +212,9 @@ export default function GameScreen() {
       >
         <button
           onClick={() => navigate('/')}
-          className="font-sans text-gold transition-opacity"
-          style={{ fontSize: '0.75rem', opacity: 0.75, letterSpacing: '0.05em' }}
-          onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.45')}
+          aria-label="Back to dashboard"
+          className="font-sans text-gold opacity-75 hover:opacity-85 transition-opacity rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+          style={{ fontSize: '0.75rem', letterSpacing: '0.05em' }}
         >
           ← Back
         </button>
@@ -227,7 +228,8 @@ export default function GameScreen() {
           </span>
           <button
             onClick={handleCopyCode}
-            className="font-serif text-gold tracking-[0.22em] uppercase transition-opacity"
+            aria-label={`Copy game code ${game.gameCode}`}
+            className="font-serif text-gold tracking-[0.22em] uppercase transition-opacity rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
             style={{
               fontSize: '0.9rem',
               paddingLeft: '0.5rem',
@@ -241,14 +243,14 @@ export default function GameScreen() {
           >
             {game.gameCode}
           </button>
-          {copyFeedback && (
-            <span
-              className="font-sans text-cream-dim"
-              style={{ fontSize: '0.6rem', opacity: 0.55, letterSpacing: '0.1em' }}
-            >
-              copied
-            </span>
-          )}
+          <span
+            role="status"
+            aria-live="polite"
+            className="font-sans text-cream-dim"
+            style={{ fontSize: '0.6rem', opacity: copyFeedback ? 0.55 : 0, letterSpacing: '0.1em' }}
+          >
+            {copyFeedback ? 'copied' : ''}
+          </span>
         </div>
 
         <UserButton appearance={{ elements: { avatarBox: 'ring-1 ring-gold/30 rounded-full' } }} />
@@ -258,9 +260,8 @@ export default function GameScreen() {
 
         {/* Scoreboard */}
         <div
-          className="rounded"
+          className="rounded bg-felt-deep"
           style={{
-            backgroundColor: 'oklch(22% 0.07 158)',
             border: '1px solid oklch(72% 0.13 82 / 10%)',
             padding: '0.75rem 0.75rem 0.6rem',
           }}
@@ -280,7 +281,7 @@ export default function GameScreen() {
                     className="font-sans truncate w-full text-center"
                     style={{
                       fontSize: '0.72rem',
-                      color: 'oklch(72% 0.13 82)',
+                      color: 'var(--color-gold)',
                       opacity: isLeader ? 0.9 : 0.55,
                       letterSpacing: '0.06em',
                       textTransform: 'uppercase',
@@ -294,7 +295,7 @@ export default function GameScreen() {
                     style={{
                       fontSize: '1.5rem',
                       lineHeight: 1,
-                      color: isLeader ? 'oklch(72% 0.13 82)' : 'oklch(88% 0.02 85)',
+                      color: isLeader ? 'var(--color-gold)' : 'var(--color-cream-soft)',
                       opacity: isLeader ? 1 : 0.75,
                     }}
                   >
@@ -323,6 +324,7 @@ export default function GameScreen() {
               RND {round.roundNumber}
             </span>
             <span
+              aria-live="polite"
               className="font-sans text-cream truncate"
               style={{ fontSize: '0.8rem', opacity: 0.75 }}
             >
@@ -334,8 +336,8 @@ export default function GameScreen() {
             style={{
               fontSize: '0.8rem',
               color: round.trumpSuit && isRedSuit(round.trumpSuit as TrumpSuit)
-                ? 'oklch(65% 0.18 25)'
-                : 'oklch(88% 0.02 85)',
+                ? 'var(--color-crimson-muted)'
+                : 'var(--color-cream-soft)',
               opacity: 0.55,
               letterSpacing: '0.04em',
             }}
@@ -363,13 +365,13 @@ export default function GameScreen() {
                   key={suit}
                   onClick={() => handleTrumpSelect(suit)}
                   disabled={settingTrump}
-                  className="flex-1 py-3.5 rounded font-serif text-2xl transition-all duration-150 active:scale-[0.94] disabled:opacity-50"
+                  className="flex-1 py-3.5 rounded font-serif text-2xl transition-all duration-150 active:scale-[0.94] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
                   style={{
                     backgroundColor: isRedSuit(suit)
-                      ? 'oklch(22% 0.06 20)'
-                      : 'oklch(25% 0.07 158)',
+                      ? 'var(--color-crimson-well)'
+                      : 'var(--color-felt)',
                     border: `1px solid ${isRedSuit(suit)
-                      ? 'oklch(65% 0.18 25 / 22%)'
+                      ? 'color-mix(in oklch, var(--color-crimson-muted) 22%, transparent)'
                       : 'oklch(72% 0.13 82 / 18%)'}`,
                     color: suitColor(suit),
                   }}
@@ -471,7 +473,7 @@ export default function GameScreen() {
                         className="font-serif text-center"
                         style={{
                           fontSize: '1.2rem',
-                          color: existingBid !== undefined ? 'oklch(72% 0.13 82)' : 'oklch(94% 0.02 85)',
+                          color: existingBid !== undefined ? 'var(--color-gold)' : 'var(--color-cream)',
                           opacity: isFutureBidder ? 0.12 : 1,
                         }}
                       >
@@ -480,7 +482,7 @@ export default function GameScreen() {
                       {existingBid !== undefined && showTricks && trickVal === existingBid.bid && (
                         <span
                           className="font-sans absolute"
-                          style={{ fontSize: '0.65rem', color: 'oklch(72% 0.18 145)', lineHeight: 1, left: '100%', top: '20%' }}
+                          style={{ fontSize: '0.65rem', color: 'var(--color-success)', lineHeight: 1, left: '100%', top: '20%' }}
                         >
                           ✓
                         </span>
@@ -528,7 +530,7 @@ export default function GameScreen() {
         {!isPlaying && nextBidderIndex !== null && !trumpReady && (
           <p
             className="font-sans text-center"
-            style={{ fontSize: '0.75rem', color: 'oklch(72% 0.13 82)', opacity: 0.55, letterSpacing: '0.06em' }}
+            style={{ fontSize: '0.75rem', color: 'var(--color-gold)', opacity: 0.55, letterSpacing: '0.06em' }}
           >
             Select a trump suit to continue
           </p>
@@ -538,10 +540,8 @@ export default function GameScreen() {
         {!isPlaying && nextBidderIndex !== null && trumpReady && (
           <button
             onClick={handleConfirmBid}
-            className="w-full py-5 rounded font-serif text-cream tracking-[0.2em] uppercase transition-all duration-150 active:scale-[0.98]"
-            style={{ fontSize: '0.78rem', backgroundColor: 'oklch(46% 0.18 25)', marginTop: '0.25rem' }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'oklch(52% 0.21 25)')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'oklch(46% 0.18 25)')}
+            className="w-full py-5 rounded font-serif text-cream tracking-[0.2em] uppercase bg-crimson hover:bg-crimson-bright transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+            style={{ fontSize: '0.78rem', marginTop: '0.25rem' }}
           >
             Confirm {game.players[nextBidderIndex]}'s Bid
           </button>
@@ -551,10 +551,8 @@ export default function GameScreen() {
         {roundComplete && (
           <button
             onClick={() => finalizeRound({ roundId: round._id })}
-            className="w-full py-5 rounded font-serif text-cream tracking-[0.2em] uppercase transition-all duration-150 active:scale-[0.98]"
-            style={{ fontSize: '0.78rem', backgroundColor: 'oklch(46% 0.18 25)', marginTop: '0.25rem' }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'oklch(52% 0.21 25)')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'oklch(46% 0.18 25)')}
+            className="w-full py-5 rounded font-serif text-cream tracking-[0.2em] uppercase bg-crimson hover:bg-crimson-bright transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+            style={{ fontSize: '0.78rem', marginTop: '0.25rem' }}
           >
             {round.roundNumber < 13 ? 'Next Round →' : 'Finish Game →'}
           </button>

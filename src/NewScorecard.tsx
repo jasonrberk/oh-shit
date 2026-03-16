@@ -133,17 +133,18 @@ export default function NewScorecard() {
           <div className="flex flex-col gap-3.5">
             {PLAYER_LABELS.map((label, i) => {
               const isDuplicate = duplicateIndices.has(i)
-              const idleBorder = isDuplicate ? 'oklch(65% 0.18 25 / 70%)' : 'oklch(72% 0.13 82 / 16%)'
-              const focusBorder = isDuplicate ? 'oklch(65% 0.18 25)' : 'oklch(72% 0.13 82 / 42%)'
+              const idleBorder = isDuplicate ? 'color-mix(in oklch, var(--color-crimson-muted) 70%, transparent)' : 'oklch(72% 0.13 82 / 16%)'
+              const focusBorder = isDuplicate ? 'var(--color-crimson-muted)' : 'oklch(72% 0.13 82 / 42%)'
               return (
               <div key={i} className="flex items-center gap-3">
                 <input
                   type="text"
+                  aria-label={label}
                   value={names[i]}
                   onChange={(e) => handleNameChange(i, e.target.value)}
                   placeholder={label}
                   maxLength={10}
-                  className="flex-1 bg-felt-light rounded px-4 py-3 font-sans text-cream text-sm focus:outline-none"
+                  className="flex-1 bg-felt-light rounded px-4 py-3 font-sans text-cream text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
                   style={{
                     border: `1px solid ${idleBorder}`,
                     transition: 'border-color 0.15s ease',
@@ -156,7 +157,7 @@ export default function NewScorecard() {
                   type="button"
                   onClick={() => toggleDealer(i as 0 | 1 | 2 | 3)}
                   disabled={!allNamesEntered}
-                  className="flex-shrink-0 transition-all duration-150 disabled:cursor-not-allowed"
+                  className="flex-shrink-0 transition-all duration-150 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
                   style={{
                     width: '2.25rem',
                     height: '2.25rem',
@@ -201,8 +202,9 @@ export default function NewScorecard() {
 
           {error && (
             <p
+              role="alert"
               className="font-sans mt-3"
-              style={{ fontSize: '0.78rem', color: 'oklch(65% 0.18 25)' }}
+              style={{ fontSize: '0.78rem', color: 'var(--color-crimson-muted)' }}
             >
               {error}
             </p>
@@ -220,7 +222,7 @@ export default function NewScorecard() {
             <button
               type="button"
               onClick={() => navigate('/')}
-              className="flex-1 px-4 py-4 bg-felt-light rounded font-serif text-gold tracking-[0.22em] uppercase transition-all duration-150 active:scale-[0.98]"
+              className="flex-1 px-4 py-4 bg-felt-light rounded font-serif text-gold tracking-[0.22em] uppercase transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
               style={{
                 fontSize: '0.72rem',
                 border: '1px solid oklch(72% 0.13 82 / 16%)',
@@ -233,10 +235,8 @@ export default function NewScorecard() {
             <button
               type="submit"
               disabled={isSubmitting || !isFormValid}
-              className="flex-[2] px-4 py-4 bg-crimson rounded font-serif text-cream tracking-[0.18em] uppercase transition-all duration-150 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex-[2] px-4 py-4 bg-crimson hover:bg-crimson-bright rounded font-serif text-cream tracking-[0.18em] uppercase transition-all duration-150 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
               style={{ fontSize: '0.72rem' }}
-              onMouseEnter={(e) => !isSubmitting && isFormValid && (e.currentTarget.style.backgroundColor = 'oklch(52% 0.21 25)')}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '')}
             >
               {isSubmitting ? 'Creating…' : 'Create Scorecard'}
             </button>

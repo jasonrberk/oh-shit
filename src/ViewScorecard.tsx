@@ -65,7 +65,7 @@ export default function ViewScorecard() {
         </p>
         <button
           onClick={() => navigate('/')}
-          className="font-sans text-gold"
+          className="font-sans text-gold rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
           style={{ fontSize: '0.7rem', opacity: 0.5, letterSpacing: '0.08em' }}
         >
           ← Back to home
@@ -77,9 +77,9 @@ export default function ViewScorecard() {
   if (game === undefined || allRounds === undefined) {
     return (
       <div className="min-h-screen bg-felt flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <span className="font-serif text-gold" style={{ fontSize: '2rem', opacity: 0.2, animation: 'pulse 2s ease-in-out infinite' }}>♦</span>
-          <span className="font-sans text-cream-dim uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem', opacity: 0.4 }}>Loading</span>
+        <div className="flex flex-col items-center gap-4" role="status" aria-label="Loading scorecard">
+          <span className="font-serif text-gold" style={{ fontSize: '2rem', opacity: 0.2, animation: 'pulse 2s ease-in-out infinite' }} aria-hidden="true">♦</span>
+          <span className="font-sans text-cream-dim uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem', opacity: 0.4 }} aria-hidden="true">Loading</span>
         </div>
       </div>
     )
@@ -104,10 +104,9 @@ export default function ViewScorecard() {
       >
         <button
           onClick={() => navigate('/')}
-          className="font-sans text-gold transition-opacity"
-          style={{ fontSize: '0.75rem', opacity: 0.75, letterSpacing: '0.05em' }}
-          onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.45')}
+          aria-label="Back to dashboard"
+          className="font-sans text-gold opacity-75 hover:opacity-85 transition-opacity rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+          style={{ fontSize: '0.75rem', letterSpacing: '0.05em' }}
         >
           ← Back
         </button>
@@ -131,9 +130,9 @@ export default function ViewScorecard() {
             className="font-sans uppercase tracking-[0.2em]"
             style={{
               fontSize: '0.5rem',
-              color: isGameComplete ? 'oklch(65% 0.18 145)' : 'oklch(72% 0.13 82)',
+              color: isGameComplete ? 'var(--color-status-complete)' : 'var(--color-gold)',
               opacity: 0.65,
-              border: `1px solid ${isGameComplete ? 'oklch(65% 0.18 145 / 40%)' : 'oklch(72% 0.13 82 / 25%)'}`,
+              border: `1px solid ${isGameComplete ? 'color-mix(in oklch, var(--color-status-complete) 40%, transparent)' : 'oklch(72% 0.13 82 / 25%)'}`,
               borderRadius: '0.2rem',
               padding: '0.1rem 0.35rem',
             }}
@@ -152,7 +151,7 @@ export default function ViewScorecard() {
         >
           {/* Sticky column header */}
           <thead>
-            <tr style={{ backgroundColor: 'oklch(22% 0.07 158)', borderBottom: '1px solid oklch(72% 0.13 82 / 15%)' }}>
+            <tr className="bg-felt-deep" style={{ borderBottom: '1px solid oklch(72% 0.13 82 / 15%)' }}>
               <th className="font-sans text-cream-dim uppercase text-center px-2 py-3" style={{ fontSize: '0.58rem', letterSpacing: '0.25em', opacity: 0.6, width: '3rem' }}>Rnd</th>
               <th className="font-sans text-cream-dim uppercase text-center px-2 py-3" style={{ fontSize: '0.58rem', letterSpacing: '0.25em', opacity: 0.6, width: '2.5rem' }}>Trump</th>
               {players.map((name, i) => (
@@ -189,7 +188,7 @@ export default function ViewScorecard() {
                         className="font-serif"
                         style={{
                           fontSize: '1rem',
-                          color: isRedSuit(round.trumpSuit as TrumpSuit) ? 'oklch(65% 0.18 25)' : 'oklch(88% 0.02 85)',
+                          color: isRedSuit(round.trumpSuit as TrumpSuit) ? 'var(--color-crimson-muted)' : 'var(--color-cream-soft)',
                           opacity: 0.75,
                         }}
                       >
@@ -231,7 +230,7 @@ export default function ViewScorecard() {
 
             {/* In-progress round row */}
             {inProgressRound && (
-              <tr style={{ backgroundColor: 'oklch(24% 0.08 158)', borderBottom: '1px solid oklch(72% 0.13 82 / 8%)' }}>
+              <tr className="bg-felt-inset" style={{ borderBottom: '1px solid oklch(72% 0.13 82 / 8%)' }}>
                 {/* Round number */}
                 <td className="text-center px-2 py-2.5">
                   <span className="font-serif text-gold" style={{ fontSize: '0.75rem', opacity: 0.55 }}>{inProgressRound.roundNumber}</span>
@@ -246,7 +245,7 @@ export default function ViewScorecard() {
                       className="font-serif"
                       style={{
                         fontSize: '1rem',
-                        color: isRedSuit(inProgressRound.trumpSuit as TrumpSuit) ? 'oklch(65% 0.18 25)' : 'oklch(88% 0.02 85)',
+                        color: isRedSuit(inProgressRound.trumpSuit as TrumpSuit) ? 'var(--color-crimson-muted)' : 'var(--color-cream-soft)',
                         opacity: 0.6,
                       }}
                     >
@@ -290,7 +289,7 @@ export default function ViewScorecard() {
 
           {/* Totals footer */}
           <tfoot>
-            <tr style={{ backgroundColor: 'oklch(20% 0.07 158)', borderTop: '1px solid oklch(72% 0.13 82 / 20%)' }}>
+            <tr className="bg-felt-deeper" style={{ borderTop: '1px solid oklch(72% 0.13 82 / 20%)' }}>
               <td colSpan={2} className="px-2 py-3">
                 <span className="font-sans text-cream-dim uppercase tracking-[0.25em]" style={{ fontSize: '0.55rem', opacity: 0.55 }}>Total</span>
               </td>
@@ -302,7 +301,7 @@ export default function ViewScorecard() {
                       className="font-serif"
                       style={{
                         fontSize: '1.1rem',
-                        color: isLeader ? 'oklch(72% 0.13 82)' : 'oklch(88% 0.02 85)',
+                        color: isLeader ? 'var(--color-gold)' : 'var(--color-cream-soft)',
                         fontWeight: isLeader ? 700 : 400,
                         opacity: isLeader ? 1 : 0.7,
                       }}
