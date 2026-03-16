@@ -59,14 +59,14 @@ export default function ViewScorecard() {
   if (game === null) {
     return (
       <div className="min-h-screen bg-felt flex flex-col items-center justify-center gap-4">
-        <span className="font-serif text-gold" style={{ fontSize: '2rem', opacity: 0.35 }}>♦</span>
-        <p className="font-sans text-cream-dim text-center tracking-[0.15em]" style={{ fontSize: '0.7rem', opacity: 0.55, maxWidth: '16rem', lineHeight: 1.6 }}>
+        <span className="font-serif text-gold text-3xl" style={{ opacity: 0.35 }}>♦</span>
+        <p className="font-sans text-cream-dim text-center tracking-[0.15em] text-xs" style={{ opacity: 0.55, maxWidth: '16rem', lineHeight: 1.6 }}>
           Game not found — the scorekeeper may have removed it, or the code may be incorrect.
         </p>
         <button
           onClick={() => navigate('/')}
-          className="font-sans text-gold rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
-          style={{ fontSize: '0.7rem', opacity: 0.5, letterSpacing: '0.08em' }}
+          className="font-sans text-gold rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 text-xs"
+          style={{ opacity: 0.5, letterSpacing: '0.08em' }}
         >
           ← Back to home
         </button>
@@ -78,8 +78,8 @@ export default function ViewScorecard() {
     return (
       <div className="min-h-screen bg-felt flex items-center justify-center">
         <div className="flex flex-col items-center gap-4" role="status" aria-label="Loading scorecard">
-          <span className="font-serif text-gold" style={{ fontSize: '2rem', opacity: 0.2, animation: 'pulse 2s ease-in-out infinite' }} aria-hidden="true">♦</span>
-          <span className="font-sans text-cream-dim uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem', opacity: 0.4 }} aria-hidden="true">Loading</span>
+          <span className="font-serif text-gold text-3xl" style={{ opacity: 0.2, animation: 'pulse 2s ease-in-out infinite' }} aria-hidden="true">♦</span>
+          <span className="font-sans text-cream-dim uppercase tracking-[0.3em] text-xs" style={{ opacity: 0.4 }} aria-hidden="true">Loading</span>
         </div>
       </div>
     )
@@ -106,18 +106,17 @@ export default function ViewScorecard() {
         <button
           onClick={() => navigate('/')}
           aria-label="Back to dashboard"
-          className="font-sans text-gold opacity-75 hover:opacity-85 transition-opacity rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
-          style={{ fontSize: '0.75rem', letterSpacing: '0.05em' }}
+          className="font-sans text-gold opacity-75 hover:opacity-85 transition-opacity rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 text-xs"
+          style={{ letterSpacing: '0.05em' }}
         >
           ← Back
         </button>
 
         <div className="flex-1 flex items-center justify-center gap-2">
-          <span className="font-sans text-cream-dim uppercase tracking-[0.3em]" style={{ fontSize: '0.55rem', opacity: 0.7 }}>Game</span>
+          <span className="font-sans text-cream-dim uppercase tracking-[0.3em] text-xs" style={{ opacity: 0.7 }}>Game</span>
           <span
-            className="font-serif text-gold tracking-[0.22em] uppercase"
+            className="font-serif text-gold tracking-[0.22em] uppercase text-sm"
             style={{
-              fontSize: '0.9rem',
               paddingLeft: '0.5rem', paddingRight: '0.5rem',
               paddingTop: '0.2rem', paddingBottom: '0.2rem',
               borderRadius: '0.25rem',
@@ -128,9 +127,8 @@ export default function ViewScorecard() {
             {game.gameCode}
           </span>
           <span
-            className="font-sans uppercase tracking-[0.2em]"
+            className="font-sans uppercase tracking-[0.2em] text-xs"
             style={{
-              fontSize: '0.5rem',
               color: isGameComplete ? 'var(--color-status-complete)' : 'var(--color-gold)',
               opacity: 0.65,
               border: `1px solid ${isGameComplete ? 'color-mix(in oklch, var(--color-status-complete) 40%, transparent)' : 'oklch(72% 0.13 82 / 25%)'}`,
@@ -155,10 +153,10 @@ export default function ViewScorecard() {
           {/* Sticky column header */}
           <thead>
             <tr className="bg-felt-deep" style={{ borderBottom: '1px solid oklch(72% 0.13 82 / 15%)' }}>
-              <th className="font-sans text-cream-dim uppercase text-center px-2 py-3" style={{ fontSize: '0.58rem', letterSpacing: '0.25em', opacity: 0.6, width: '3rem' }}>Rnd</th>
-              <th className="font-sans text-cream-dim uppercase text-center px-2 py-3" style={{ fontSize: '0.58rem', letterSpacing: '0.25em', opacity: 0.6, width: '2.5rem' }}>Trump</th>
+              <th className="font-sans text-cream-dim uppercase text-center px-2 py-3 text-xs" style={{ letterSpacing: '0.25em', opacity: 0.6, width: '3rem' }}>Rnd</th>
+              <th className="font-sans text-cream-dim uppercase text-center px-2 py-3 text-xs" style={{ letterSpacing: '0.25em', opacity: 0.6, width: '2.5rem' }}>Trump</th>
               {players.map((name, i) => (
-                <th key={i} className="font-sans text-gold uppercase text-center px-2 py-3" style={{ fontSize: '0.62rem', letterSpacing: '0.15em', opacity: 0.8 }}>
+                <th key={i} className="font-sans text-gold uppercase text-center px-2 py-3 text-xs" style={{ letterSpacing: '0.15em', opacity: 0.8 }}>
                   <span className="block truncate" style={{ maxWidth: '5rem' }} title={name}>{name}</span>
                 </th>
               ))}
@@ -179,18 +177,17 @@ export default function ViewScorecard() {
                 >
                   {/* Round number */}
                   <td className="text-center px-2 py-2.5">
-                    <span className="font-serif text-gold" style={{ fontSize: '0.75rem', opacity: 0.7 }}>{round.roundNumber}</span>
+                    <span className="font-serif text-gold text-xs" style={{ opacity: 0.7 }}>{round.roundNumber}</span>
                   </td>
 
                   {/* Trump suit */}
                   <td className="text-center px-2 py-2.5">
                     {round.roundNumber === 1 || !round.trumpSuit ? (
-                      <span className="font-sans text-cream-dim" style={{ fontSize: '0.7rem', opacity: 0.25 }}>—</span>
+                      <span className="font-sans text-cream-dim text-xs" style={{ opacity: 0.25 }}>—</span>
                     ) : (
                       <span
-                        className="font-serif"
+                        className="font-serif text-base"
                         style={{
-                          fontSize: '1rem',
                           color: isRedSuit(round.trumpSuit as TrumpSuit) ? 'var(--color-crimson-muted)' : 'var(--color-cream-soft)',
                           opacity: 0.75,
                         }}
@@ -209,20 +206,20 @@ export default function ViewScorecard() {
                         {res ? (
                           <div className="flex flex-col items-center gap-0.5">
                             <div className="flex items-center gap-0.5">
-                              <span className="font-serif text-cream" style={{ fontSize: '0.85rem', opacity: 0.9 }}>
+                              <span className="font-serif text-cream text-sm" style={{ opacity: 0.9 }}>
                                 {res.bid}/{res.tricks}
                               </span>
-                              {perfect && <span style={{ fontSize: '0.75rem', lineHeight: 1 }}>🔥</span>}
+                              {perfect && <span className="text-xs" style={{ lineHeight: 1 }}>🔥</span>}
                             </div>
-                            <span className="font-sans" style={{ fontSize: '0.6rem', color: 'oklch(72% 0.13 82)', opacity: 0.55 }}>
+                            <span className="font-sans text-xs" style={{ color: 'oklch(72% 0.13 82)', opacity: 0.55 }}>
                               +{res.points}
                             </span>
-                            <span className="font-serif text-cream" style={{ fontSize: '0.75rem', opacity: 0.55 }}>
+                            <span className="font-serif text-cream text-xs" style={{ opacity: 0.55 }}>
                               {cum[i]}
                             </span>
                           </div>
                         ) : (
-                          <span className="font-sans text-cream-dim" style={{ fontSize: '0.7rem', opacity: 0.2 }}>—</span>
+                          <span className="font-sans text-cream-dim text-xs" style={{ opacity: 0.2 }}>—</span>
                         )}
                       </td>
                     )
@@ -236,18 +233,17 @@ export default function ViewScorecard() {
               <tr className="bg-felt-inset" style={{ borderBottom: '1px solid oklch(72% 0.13 82 / 8%)' }}>
                 {/* Round number */}
                 <td className="text-center px-2 py-2.5">
-                  <span className="font-serif text-gold" style={{ fontSize: '0.75rem', opacity: 0.55 }}>{inProgressRound.roundNumber}</span>
+                  <span className="font-serif text-gold text-xs" style={{ opacity: 0.55 }}>{inProgressRound.roundNumber}</span>
                 </td>
 
                 {/* Trump suit */}
                 <td className="text-center px-2 py-2.5">
                   {inProgressRound.roundNumber === 1 || !inProgressRound.trumpSuit ? (
-                    <span className="font-sans text-cream-dim" style={{ fontSize: '0.7rem', opacity: 0.2 }}>—</span>
+                    <span className="font-sans text-cream-dim text-xs" style={{ opacity: 0.2 }}>—</span>
                   ) : (
                     <span
-                      className="font-serif"
+                      className="font-serif text-base"
                       style={{
-                        fontSize: '1rem',
                         color: isRedSuit(inProgressRound.trumpSuit as TrumpSuit) ? 'var(--color-crimson-muted)' : 'var(--color-cream-soft)',
                         opacity: 0.6,
                       }}
@@ -269,17 +265,17 @@ export default function ViewScorecard() {
                       <div className="flex flex-col items-center gap-0.5">
                         {/* bid / tricks display */}
                         <div className="flex items-center gap-0.5">
-                          <span className="font-serif" style={{ fontSize: '0.85rem', color: 'oklch(88% 0.02 85)', opacity: 0.5 }}>
+                          <span className="font-serif text-sm" style={{ color: 'oklch(88% 0.02 85)', opacity: 0.5 }}>
                             {bid !== undefined
                               ? isPlaying && tricks !== undefined
                                 ? `${bid}/${tricks}`
                                 : `${bid}`
                               : '—'}
                           </span>
-                          {perfect && <span style={{ fontSize: '0.75rem', lineHeight: 1 }}>🔥</span>}
+                          {perfect && <span className="text-xs" style={{ lineHeight: 1 }}>🔥</span>}
                         </div>
                         {/* "in progress" hint */}
-                        <span className="font-sans" style={{ fontSize: '0.52rem', color: 'oklch(72% 0.13 82)', opacity: 0.3, letterSpacing: '0.1em' }}>
+                        <span className="font-sans text-xs" style={{ color: 'oklch(72% 0.13 82)', opacity: 0.3, letterSpacing: '0.1em' }}>
                           {isPlaying ? 'playing' : bid !== undefined ? 'bid' : ''}
                         </span>
                       </div>
@@ -294,16 +290,15 @@ export default function ViewScorecard() {
           <tfoot>
             <tr className="bg-felt-deeper" style={{ borderTop: '1px solid oklch(72% 0.13 82 / 20%)' }}>
               <td colSpan={2} className="px-2 py-3">
-                <span className="font-sans text-cream-dim uppercase tracking-[0.25em]" style={{ fontSize: '0.55rem', opacity: 0.55 }}>Total</span>
+                <span className="font-sans text-cream-dim uppercase tracking-[0.25em] text-xs" style={{ opacity: 0.55 }}>Total</span>
               </td>
               {players.map((_, i) => {
                 const isLeader = totals[i] === maxScore && maxScore > 0
                 return (
                   <td key={i} className="text-center px-2 py-3">
                     <span
-                      className="font-serif"
+                      className="font-serif text-lg"
                       style={{
-                        fontSize: '1.1rem',
                         color: isLeader ? 'var(--color-gold)' : 'var(--color-cream-soft)',
                         fontWeight: isLeader ? 700 : 400,
                         opacity: isLeader ? 1 : 0.7,

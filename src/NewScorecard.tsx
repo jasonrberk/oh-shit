@@ -92,8 +92,8 @@ export default function NewScorecard() {
       >
         <div className="mx-auto w-full max-w-lg flex items-center justify-between px-6 py-4">
           <h1
-            className="font-serif text-gold tracking-[0.28em] uppercase"
-            style={{ fontSize: '1.05rem', fontWeight: 700 }}
+            className="font-serif text-gold tracking-[0.28em] uppercase text-base"
+            style={{ fontWeight: 700 }}
           >
             Oh Shit!
           </h1>
@@ -110,7 +110,7 @@ export default function NewScorecard() {
       {/* Main */}
       <main className="flex-1 px-6 pt-8 pb-10">
 
-        <h2 className="font-serif text-cream tracking-wide mb-8" style={{ fontSize: '1.4rem' }}>
+        <h2 className="font-serif text-cream tracking-wide mb-8 text-xl">
           New Scorecard
         </h2>
 
@@ -163,9 +163,8 @@ export default function NewScorecard() {
                   aria-label={`Set ${names[i] || label} as dealer`}
                 >
                   <span
-                    className="font-serif"
+                    className="font-serif text-xs"
                     style={{
-                      fontSize: '0.72rem',
                       color: dealerIndex === i ? 'oklch(72% 0.13 82)' : 'oklch(72% 0.13 82 / 50%)',
                     }}
                   >
@@ -179,8 +178,8 @@ export default function NewScorecard() {
 
           {/* Dealer status line */}
           <p
-            className="font-sans text-cream-dim mt-5"
-            style={{ fontSize: '0.78rem', opacity: 0.6, letterSpacing: '0.02em' }}
+            className="font-sans text-cream-dim mt-5 text-sm"
+            style={{ opacity: 0.6, letterSpacing: '0.02em' }}
           >
             {dealerName
               ? `${dealerName} will be the dealer`
@@ -190,8 +189,8 @@ export default function NewScorecard() {
           {error && (
             <p
               role="alert"
-              className="font-sans mt-3"
-              style={{ fontSize: '0.78rem', color: 'var(--color-crimson-muted)' }}
+              className="font-sans mt-3 text-sm"
+              style={{ color: 'var(--color-crimson-muted)' }}
             >
               {error}
             </p>
@@ -200,7 +199,7 @@ export default function NewScorecard() {
           {/* Ornamental divider */}
           <div className="flex items-center gap-3 my-8">
             <div className="h-px flex-1 bg-gold" style={{ opacity: 0.1 }} />
-            <span className="text-gold" style={{ fontSize: '0.6rem', opacity: 0.22 }}>♦</span>
+            <span className="text-gold text-xs" style={{ opacity: 0.22 }}>♦</span>
             <div className="h-px flex-1 bg-gold" style={{ opacity: 0.1 }} />
           </div>
 
@@ -209,9 +208,8 @@ export default function NewScorecard() {
             <button
               type="button"
               onClick={() => navigate('/')}
-              className="flex-1 px-4 py-4 bg-felt-light rounded font-serif text-gold tracking-[0.22em] uppercase transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+              className="flex-1 px-4 py-4 bg-felt-light rounded font-serif text-gold tracking-[0.22em] uppercase transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 text-xs"
               style={{
-                fontSize: '0.72rem',
                 border: '1px solid oklch(72% 0.13 82 / 16%)',
               }}
               onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'oklch(72% 0.13 82 / 38%)')}
@@ -222,8 +220,7 @@ export default function NewScorecard() {
             <button
               type="submit"
               disabled={isSubmitting || !isFormValid}
-              className="flex-[2] px-4 py-4 bg-crimson hover:bg-crimson-bright rounded font-serif text-cream tracking-[0.18em] uppercase transition-all duration-150 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
-              style={{ fontSize: '0.72rem' }}
+              className="flex-[2] px-4 py-4 bg-crimson hover:bg-crimson-bright rounded font-serif text-cream tracking-[0.18em] uppercase transition-all duration-150 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 text-xs"
             >
               {isSubmitting ? 'Creating…' : 'Create Scorecard'}
             </button>

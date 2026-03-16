@@ -30,13 +30,12 @@ function StepBtn({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="flex items-center justify-center flex-shrink-0 transition-all duration-100 active:scale-90 disabled:opacity-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 bg-felt-raised"
+      className="flex items-center justify-center flex-shrink-0 transition-all duration-100 active:scale-90 disabled:opacity-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 bg-felt-raised text-lg"
       style={{
         width: '2.75rem',
         height: '2.75rem',
         borderRadius: '50%',
         border: '1px solid oklch(72% 0.13 82 / 30%)',
-        fontSize: '1.1rem',
         color: 'var(--color-cream)',
         lineHeight: 1,
       }}
@@ -150,14 +149,14 @@ export default function GameScreen() {
   if (game === null) {
     return (
       <div className="min-h-screen bg-felt flex flex-col items-center justify-center gap-4">
-        <span className="font-serif text-gold" style={{ fontSize: '2rem', opacity: 0.35 }}>♦</span>
-        <p className="font-sans text-cream-dim text-center tracking-[0.15em]" style={{ fontSize: '0.7rem', opacity: 0.55, maxWidth: '16rem', lineHeight: 1.6 }}>
+        <span className="font-serif text-gold text-3xl" style={{ opacity: 0.35 }}>♦</span>
+        <p className="font-sans text-cream-dim text-center tracking-[0.15em] text-xs" style={{ opacity: 0.55, maxWidth: '16rem', lineHeight: 1.6 }}>
           Game not found — it may have been deleted.
         </p>
         <button
           onClick={() => navigate('/')}
-          className="font-sans text-gold rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
-          style={{ fontSize: '0.7rem', opacity: 0.5, letterSpacing: '0.08em' }}
+          className="font-sans text-gold rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 text-xs"
+          style={{ opacity: 0.5, letterSpacing: '0.08em' }}
         >
           ← Back to home
         </button>
@@ -170,15 +169,15 @@ export default function GameScreen() {
       <div className="min-h-screen bg-felt flex items-center justify-center">
         <div className="flex flex-col items-center gap-4" role="status" aria-label="Loading game">
           <span
-            className="font-serif text-gold"
-            style={{ fontSize: '2rem', opacity: 0.2, animation: 'pulse 2s ease-in-out infinite' }}
+            className="font-serif text-gold text-3xl"
+            style={{ opacity: 0.2, animation: 'pulse 2s ease-in-out infinite' }}
             aria-hidden="true"
           >
             ♦
           </span>
           <span
-            className="font-sans text-cream-dim uppercase tracking-[0.3em]"
-            style={{ fontSize: '0.65rem', opacity: 0.4 }}
+            className="font-sans text-cream-dim uppercase tracking-[0.3em] text-xs"
+            style={{ opacity: 0.4 }}
             aria-hidden="true"
           >
             Loading
@@ -218,25 +217,24 @@ export default function GameScreen() {
         <button
           onClick={() => navigate('/')}
           aria-label="Back to dashboard"
-          className="font-sans text-gold opacity-75 hover:opacity-85 transition-opacity rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
-          style={{ fontSize: '0.75rem', letterSpacing: '0.05em' }}
+          className="font-sans text-gold opacity-75 hover:opacity-85 transition-opacity rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 text-xs"
+          style={{ letterSpacing: '0.05em' }}
         >
           ← Back
         </button>
 
         <div className="flex-1 flex items-center justify-center gap-2">
           <span
-            className="font-sans text-cream-dim uppercase tracking-[0.3em]"
-            style={{ fontSize: '0.55rem', opacity: 0.7 }}
+            className="font-sans text-cream-dim uppercase tracking-[0.3em] text-xs"
+            style={{ opacity: 0.7 }}
           >
             Game
           </span>
           <button
             onClick={handleCopyCode}
             aria-label={`Copy game code ${game.gameCode}`}
-            className="font-serif text-gold tracking-[0.22em] uppercase transition-opacity rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+            className="font-serif text-gold tracking-[0.22em] uppercase transition-opacity rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 text-sm"
             style={{
-              fontSize: '0.9rem',
               paddingLeft: '0.5rem',
               paddingRight: '0.5rem',
               paddingTop: '0.2rem',
@@ -251,8 +249,8 @@ export default function GameScreen() {
           <span
             role="status"
             aria-live="polite"
-            className="font-sans text-cream-dim"
-            style={{ fontSize: '0.6rem', opacity: copyFeedback ? 0.55 : 0, letterSpacing: '0.1em' }}
+            className="font-sans text-cream-dim text-xs"
+            style={{ opacity: copyFeedback ? 0.55 : 0, letterSpacing: '0.1em' }}
           >
             {copyFeedback ? 'copied' : ''}
           </span>
@@ -285,9 +283,8 @@ export default function GameScreen() {
               return (
                 <div key={i} className="flex flex-col items-center" style={{ gap: '0.2rem' }}>
                   <span
-                    className="font-sans truncate w-full text-center"
+                    className="font-sans truncate w-full text-center text-xs"
                     style={{
-                      fontSize: '0.72rem',
                       color: 'var(--color-gold)',
                       opacity: isLeader ? 0.9 : 0.55,
                       letterSpacing: '0.06em',
@@ -298,9 +295,8 @@ export default function GameScreen() {
                     {name}
                   </span>
                   <span
-                    className="font-serif"
+                    className="font-serif text-2xl"
                     style={{
-                      fontSize: '1.5rem',
                       lineHeight: 1,
                       color: isLeader ? 'var(--color-gold)' : 'var(--color-cream-soft)',
                       opacity: isLeader ? 1 : 0.75,
@@ -317,7 +313,7 @@ export default function GameScreen() {
         {/* Ornamental divider */}
         <div className="flex items-center gap-3" style={{ marginTop: '-0.25rem', marginBottom: '-0.25rem' }}>
           <div className="h-px flex-1 bg-gold" style={{ opacity: 0.08 }} />
-          <span className="text-gold" style={{ fontSize: '0.6rem', opacity: 0.18 }}>♦</span>
+          <span className="text-gold text-xs" style={{ opacity: 0.18 }}>♦</span>
           <div className="h-px flex-1 bg-gold" style={{ opacity: 0.08 }} />
         </div>
 
@@ -325,23 +321,22 @@ export default function GameScreen() {
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-baseline gap-2.5 min-w-0">
             <span
-              className="font-serif text-gold flex-shrink-0"
-              style={{ fontSize: '0.7rem', letterSpacing: '0.18em', opacity: 0.7 }}
+              className="font-serif text-gold flex-shrink-0 text-xs"
+              style={{ letterSpacing: '0.18em', opacity: 0.7 }}
             >
               RND {round.roundNumber}
             </span>
             <span
               aria-live="polite"
-              className="font-sans text-cream truncate"
-              style={{ fontSize: '0.8rem', opacity: 0.75 }}
+              className="font-sans text-cream truncate text-sm"
+              style={{ opacity: 0.75 }}
             >
               {bidStatusText}
             </span>
           </div>
           <span
-            className="font-sans flex-shrink-0"
+            className="font-sans flex-shrink-0 text-sm"
             style={{
-              fontSize: '0.8rem',
               color: round.trumpSuit && isRedSuit(round.trumpSuit as TrumpSuit)
                 ? 'var(--color-crimson-muted)'
                 : 'var(--color-cream-soft)',
@@ -361,8 +356,8 @@ export default function GameScreen() {
         {round.roundNumber > 1 && !round.trumpSuit && !isPlaying && (
           <div>
             <p
-              className="font-sans text-cream-dim uppercase mb-2.5"
-              style={{ fontSize: '0.6rem', opacity: 0.7, letterSpacing: '0.28em' }}
+              className="font-sans text-cream-dim uppercase mb-2.5 text-xs"
+              style={{ opacity: 0.7, letterSpacing: '0.28em' }}
             >
               Select trump suit
             </p>
@@ -401,15 +396,15 @@ export default function GameScreen() {
           {/* Column headers */}
           <div />
           <div
-            className="font-sans text-cream-dim uppercase text-center"
-            style={{ fontSize: '0.6rem', opacity: 0.7, letterSpacing: '0.28em' }}
+            className="font-sans text-cream-dim uppercase text-center text-xs"
+            style={{ opacity: 0.7, letterSpacing: '0.28em' }}
           >
             Bids
           </div>
           {showTricks && (
             <div
-              className="font-sans text-cream-dim uppercase text-center"
-              style={{ fontSize: '0.6rem', opacity: 0.7, letterSpacing: '0.28em' }}
+              className="font-sans text-cream-dim uppercase text-center text-xs"
+              style={{ opacity: 0.7, letterSpacing: '0.28em' }}
             >
               Tricks
             </div>
@@ -440,18 +435,17 @@ export default function GameScreen() {
                     transition: 'opacity 0.15s ease',
                   }}
                 >
-                  <span className="font-sans text-cream truncate" style={{ fontSize: '0.9rem' }}>
+                  <span className="font-sans text-cream truncate text-sm">
                     {game.players[playerIndex]}
                   </span>
                   {isDealer && (
                     <span
-                      className="flex-shrink-0 flex items-center justify-center font-serif text-gold"
+                      className="flex-shrink-0 flex items-center justify-center font-serif text-gold text-xs"
                       style={{
                         width: '1.1rem',
                         height: '1.1rem',
                         borderRadius: '50%',
                         border: '1.5px solid oklch(72% 0.13 82 / 55%)',
-                        fontSize: '0.5rem',
                         letterSpacing: 0,
                         opacity: 0.8,
                       }}
@@ -467,8 +461,8 @@ export default function GameScreen() {
                     <div className="flex items-center gap-2">
                       <StepBtn label="−" onClick={() => stepBid(-1)} disabled={!trumpReady || pendingBid === 0} />
                       <span
-                        className="font-serif text-cream text-center"
-                        style={{ width: '1.5rem', fontSize: '1.2rem', opacity: trumpReady ? 1 : 0.35 }}
+                        className="font-serif text-cream text-center text-xl"
+                        style={{ width: '1.5rem', opacity: trumpReady ? 1 : 0.35 }}
                       >
                         {pendingBid}
                       </span>
@@ -477,9 +471,8 @@ export default function GameScreen() {
                   ) : (
                     <div className="relative flex items-center justify-center" style={{ width: '1.5rem' }}>
                       <span
-                        className="font-serif text-center"
+                        className="font-serif text-center text-xl"
                         style={{
-                          fontSize: '1.2rem',
                           color: existingBid !== undefined ? 'var(--color-gold)' : 'var(--color-cream)',
                           opacity: isFutureBidder ? 0.12 : 1,
                         }}
@@ -488,8 +481,8 @@ export default function GameScreen() {
                       </span>
                       {existingBid !== undefined && showTricks && trickVal === existingBid.bid && (
                         <span
-                          className="font-sans absolute"
-                          style={{ fontSize: '0.65rem', color: 'var(--color-success)', lineHeight: 1, left: '100%', top: '20%' }}
+                          className="font-sans absolute text-xs"
+                          style={{ color: 'var(--color-success)', lineHeight: 1, left: '100%', top: '20%' }}
                         >
                           ✓
                         </span>
@@ -498,8 +491,8 @@ export default function GameScreen() {
                   )}
                   {showForbiddenHint && (
                     <span
-                      className="font-sans text-cream-dim text-center"
-                      style={{ fontSize: '0.58rem', opacity: 0.45, letterSpacing: '0.02em' }}
+                      className="font-sans text-cream-dim text-center text-xs"
+                      style={{ opacity: 0.45, letterSpacing: '0.02em' }}
                     >
                       anything but {forbiddenBid}
                     </span>
@@ -515,8 +508,8 @@ export default function GameScreen() {
                       disabled={!canRemoveTrick}
                     />
                     <span
-                      className="font-serif text-cream text-center"
-                      style={{ width: '1.5rem', fontSize: '1.2rem' }}
+                      className="font-serif text-cream text-center text-xl"
+                      style={{ width: '1.5rem' }}
                     >
                       {trickVal}
                     </span>
@@ -536,8 +529,8 @@ export default function GameScreen() {
         {/* Trump required notice */}
         {!isPlaying && nextBidderIndex !== null && !trumpReady && (
           <p
-            className="font-sans text-center"
-            style={{ fontSize: '0.75rem', color: 'var(--color-gold)', opacity: 0.55, letterSpacing: '0.06em' }}
+            className="font-sans text-center text-xs"
+            style={{ color: 'var(--color-gold)', opacity: 0.55, letterSpacing: '0.06em' }}
           >
             Select a trump suit to continue
           </p>
@@ -548,8 +541,8 @@ export default function GameScreen() {
           <button
             onClick={handleConfirmBid}
             disabled={nextBidderIndex === round?.dealerIndex && pendingBid === forbiddenBid}
-            className="w-full py-5 rounded font-serif text-cream tracking-[0.2em] uppercase bg-crimson hover:bg-crimson-bright transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 disabled:opacity-40 disabled:pointer-events-none"
-            style={{ fontSize: '0.78rem', marginTop: '0.25rem' }}
+            className="w-full py-5 rounded font-serif text-cream tracking-[0.2em] uppercase bg-crimson hover:bg-crimson-bright transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 disabled:opacity-40 disabled:pointer-events-none text-sm"
+            style={{ marginTop: '0.25rem' }}
           >
             Confirm {game.players[nextBidderIndex]}'s Bid
           </button>
@@ -559,8 +552,8 @@ export default function GameScreen() {
         {roundComplete && (
           <button
             onClick={() => finalizeRound({ roundId: round._id })}
-            className="w-full py-5 rounded font-serif text-cream tracking-[0.2em] uppercase bg-crimson hover:bg-crimson-bright transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
-            style={{ fontSize: '0.78rem', marginTop: '0.25rem' }}
+            className="w-full py-5 rounded font-serif text-cream tracking-[0.2em] uppercase bg-crimson hover:bg-crimson-bright transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 text-sm"
+            style={{ marginTop: '0.25rem' }}
           >
             {round.roundNumber < 13 ? 'Next Round →' : 'Finish Game →'}
           </button>

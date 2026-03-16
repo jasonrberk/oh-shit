@@ -13,9 +13,8 @@ function SignInPage() {
 
           <div className="text-center">
             <h1
-              className="font-serif text-crimson leading-none"
+              className="font-serif text-crimson leading-none text-[clamp(3.25rem,14vw,5rem)]"
               style={{
-                fontSize: 'clamp(3.25rem, 14vw, 5rem)',
                 fontWeight: 900,
                 letterSpacing: '0.08em',
                 textShadow: '0 4px 24px rgba(0,0,0,0.7)',
@@ -24,8 +23,8 @@ function SignInPage() {
               Oh Shit!
             </h1>
             <p
-              className="font-serif text-gold tracking-[0.4em] uppercase mt-3 inline-block px-4 py-1.5 rounded-full border border-gold"
-              style={{ fontSize: '0.65rem', opacity: 0.9, borderColor: 'oklch(72% 0.13 82 / 35%)', backgroundColor: 'oklch(72% 0.13 82 / 10%)' }}
+              className="font-serif text-gold tracking-[0.4em] uppercase mt-3 inline-block px-4 py-1.5 rounded-full border border-gold text-xs"
+              style={{ opacity: 0.9, borderColor: 'oklch(72% 0.13 82 / 35%)', backgroundColor: 'oklch(72% 0.13 82 / 10%)' }}
             >
               Card Game Companion
             </p>
