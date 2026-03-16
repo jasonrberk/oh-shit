@@ -203,7 +203,8 @@ export default function GameScreen() {
   })()
 
   return (
-    <div className="min-h-screen bg-felt flex flex-col">
+    <div className="min-h-screen bg-felt">
+    <div className="mx-auto w-full max-w-lg min-h-screen flex flex-col">
 
       {/* Header */}
       <header
@@ -559,6 +560,7 @@ export default function GameScreen() {
         )}
 
       </main>
+    </div>
     </div>
   )
 }

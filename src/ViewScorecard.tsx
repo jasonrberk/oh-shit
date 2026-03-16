@@ -95,7 +95,8 @@ export default function ViewScorecard() {
   for (const b of liveBids ?? []) liveBidsMap.set(b.playerIndex, b.bid)
 
   return (
-    <div className="min-h-screen bg-felt flex flex-col">
+    <div className="min-h-screen bg-felt">
+    <div className="mx-auto w-full max-w-lg min-h-screen flex flex-col">
 
       {/* Header */}
       <header
@@ -316,6 +317,7 @@ export default function ViewScorecard() {
         </table>
       </main>
 
+    </div>
     </div>
   )
 }

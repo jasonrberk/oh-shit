@@ -16,7 +16,8 @@ function Dashboard() {
   const deleteGame = useMutation(api.games.deleteGame)
 
   return (
-    <div className="min-h-screen bg-felt flex flex-col relative overflow-hidden">
+    <div className="min-h-screen bg-felt relative overflow-hidden">
+    <div className="mx-auto w-full max-w-lg min-h-screen flex flex-col">
 
       {/* Header */}
       <header
@@ -336,6 +337,7 @@ function Dashboard() {
 
       </main>
 
+    </div>
     </div>
   )
 }

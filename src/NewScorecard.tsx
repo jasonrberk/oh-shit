@@ -83,7 +83,8 @@ export default function NewScorecard() {
   const dealerName = dealerIndex !== null ? names[dealerIndex]?.trim() : null
 
   return (
-    <div className="min-h-screen bg-felt flex flex-col">
+    <div className="min-h-screen bg-felt">
+    <div className="mx-auto w-full max-w-lg min-h-screen flex flex-col">
 
       {/* Header */}
       <header
@@ -244,6 +245,7 @@ export default function NewScorecard() {
 
         </form>
       </main>
+    </div>
     </div>
   )
 }
