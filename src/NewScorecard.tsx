@@ -113,23 +113,6 @@ export default function NewScorecard() {
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-0">
 
-          {/* Dealer column header */}
-          <div className="flex items-center mb-2">
-            <div className="flex-1" />
-            <span
-              className="font-sans text-cream-dim uppercase"
-              style={{
-                fontSize: '0.58rem',
-                opacity: 0.45,
-                letterSpacing: '0.3em',
-                width: '2.25rem',
-                textAlign: 'center',
-              }}
-            >
-              D
-            </span>
-          </div>
-
           {/* Player rows */}
           <div className="flex flex-col gap-3.5">
             {PLAYER_LABELS.map((label, i) => {
